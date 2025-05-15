@@ -1,7 +1,6 @@
 import React from 'react';
 
 type PlaceCardProps = {
-  key: string;
   isPremium: boolean;
   imageUrl: string;
   price: number;
@@ -11,9 +10,9 @@ type PlaceCardProps = {
   placeType: string;
 }
 
-function PlaceCardComponent({key, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType} : PlaceCardProps): JSX.Element {
+function PlaceCardComponent({isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType} : PlaceCardProps): JSX.Element {
   return (
-    <article className="cities__card place-card" id={key}>
+    <article className="cities__card place-card">
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="/">

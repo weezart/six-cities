@@ -50,3 +50,5 @@ export const PLACES = [
     placeType: 'Room',
   },
 ];
+
+export const PLACES_EMPTY = [];
