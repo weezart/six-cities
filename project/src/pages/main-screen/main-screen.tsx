@@ -56,7 +56,7 @@ function MainScreen({places, locations} : MainScreenProps): JSX.Element {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${places.length === 0 ? 'page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -72,42 +72,51 @@ function MainScreen({places, locations} : MainScreenProps): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by </span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width={7} height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom ">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <div className="cities__places-list places__list tabs__content">
-                {places.map((place, i) => (
-                  <PlaceCardComponent
-                    key={place.key}
-                    isPremium={place.isPremium}
-                    imageUrl={place.imageUrl}
-                    price={place.price}
-                    isMarkActive={place.isMarkActive}
-                    ratingWidth={place.ratingWidth}
-                    name={place.name}
-                    placeType={place.placeType}
-                  />
-                ))}
-              </div>
-            </section>
+          <div className={`cities__places-container ${places.length === 0 ? 'cities__places-container--empty' : ''} container`}>
+            {places.length !== 0 ? (
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">312 places to stay in Amsterdam</b>
+                <form className="places__sorting" action="#" method="get">
+                  <span className="places__sorting-caption">Sort by </span>
+                  <span className="places__sorting-type" tabIndex={0}>
+                    Popular
+                    <svg className="places__sorting-arrow" width={7} height="4">
+                      <use xlinkHref="#icon-arrow-select"></use>
+                    </svg>
+                  </span>
+                  <ul className="places__options places__options--custom ">
+                    <li className="places__option places__option--active" tabIndex={0}>Popular</li>
+                    <li className="places__option" tabIndex={0}>Price: low to high</li>
+                    <li className="places__option" tabIndex={0}>Price: high to low</li>
+                    <li className="places__option" tabIndex={0}>Top rated first</li>
+                  </ul>
+                </form>
+                <div className="cities__places-list places__list tabs__content">
+                  {places.map((place, i) => (
+                    <PlaceCardComponent
+                      key={place.key}
+                      isPremium={place.isPremium}
+                      imageUrl={place.imageUrl}
+                      price={place.price}
+                      isMarkActive={place.isMarkActive}
+                      ratingWidth={place.ratingWidth}
+                      name={place.name}
+                      placeType={place.placeType}
+                    />
+                  ))}
+                </div>
+              </section>
+            ) : (
+              <section className="cities__no-places">
+                <div className="cities__status-wrapper tabs__content">
+                  <b className="cities__status">No places to stay available</b>
+                  <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                </div>
+              </section>
+            )}
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              {places.length !== 0 ? <section className="cities__map map"></section> : '' }
             </div>
           </div>
         </div>
