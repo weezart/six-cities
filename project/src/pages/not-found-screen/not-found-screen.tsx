@@ -1,4 +1,6 @@
 import {Link} from 'react-router-dom';
+import Logo from '../../components/logo/logo';
+import React from "react";
 
 function NotFoundScreen(): JSX.Element {
   return (
@@ -7,9 +9,7 @@ function NotFoundScreen(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              <Logo linkClass={'header__logo-link'} />
             </div>
           </div>
         </div>
