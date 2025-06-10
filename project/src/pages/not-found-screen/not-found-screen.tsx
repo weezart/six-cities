@@ -16,7 +16,7 @@ function NotFoundScreen(): JSX.Element {
       </header>
 
       <main className="page__main">
-        <h1>Cities</h1>
+        <h1>404. Page not found</h1>
         <Link to="/">Вернуться на главную</Link>
       </main>
     </div>
