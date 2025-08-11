@@ -6,8 +6,6 @@ import LoginScreen from '../../pages/Login-screen/Login-screen';
 import FavoritesScreen from '../../pages/Favorites-screen/Favorites-screen';
 import OfferScreen from '../../pages/Offer-screen/Offer-screen';
 import NotFoundScreen from '../../pages/Not-found-screen/Not-found-screen';
-import {FAVORITES} from '../../mock/favorite';
-import {LOCATIONS} from '../../mock/locations';
 import {OFFERS} from '../../mock/offers';
 
 const isLogged = true;
@@ -18,7 +16,7 @@ const App = () => {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen offers={OFFERS} locations={LOCATIONS} />}
+          element={<MainScreen offers={OFFERS} />}
         />
         <Route
           path={AppRoute.Login}
@@ -30,7 +28,7 @@ const App = () => {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <FavoritesScreen favorites={FAVORITES} />
+              <FavoritesScreen offers={OFFERS} />
             </PrivateRoute>
           }
         />

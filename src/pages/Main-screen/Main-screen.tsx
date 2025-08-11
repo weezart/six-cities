@@ -1,14 +1,14 @@
-import LocationComponent from '../../components/Location/Location';
 import PlaceCardComponent from '../../components/Place-card/Place-card';
 import Logo from '../../components/Logo/Logo';
-import {Offer, Location} from "../../types/types";
+import {Offer} from "../../types/types";
 
 type MainScreenProps = {
   offers: Offer[];
-  locations: Location[];
 }
 
-const MainScreen = ({offers, locations} : MainScreenProps) => {
+const MainScreen = ({offers} : MainScreenProps) => {
+  const cityOffers = offers.filter((offer) => offer.city === 'Amsterdam');
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -43,22 +43,45 @@ const MainScreen = ({offers, locations} : MainScreenProps) => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {locations.map((location,i) => (
-                <LocationComponent
-                  key={location.id}
-                  city={location.city}
-                  isActive={location.isActive}
-                />
-              ))}
+              <li className="locations__item">
+                <a className="locations__item-link tabs__item" href="#">
+                  <span>Paris</span>
+                </a>
+              </li>
+              <li className="locations__item">
+                <a className="locations__item-link tabs__item" href="#">
+                  <span>Cologne</span>
+                </a>
+              </li>
+              <li className="locations__item">
+                <a className="locations__item-link tabs__item" href="#">
+                  <span>Brussels</span>
+                </a>
+              </li>
+              <li className="locations__item">
+                <a className="locations__item-link tabs__item tabs__item--active">
+                  <span>Amsterdam</span>
+                </a>
+              </li>
+              <li className="locations__item">
+                <a className="locations__item-link tabs__item" href="#">
+                  <span>Hamburg</span>
+                </a>
+              </li>
+              <li className="locations__item">
+                <a className="locations__item-link tabs__item" href="#">
+                  <span>Dusseldorf</span>
+                </a>
+              </li>
             </ul>
           </section>
         </div>
         <div className="cities">
-          <div className={`cities__places-container ${offers.length === 0 ? 'cities__places-container--empty' : ''} container`}>
-            {offers.length !== 0 ? (
+          <div className={`cities__places-container ${cityOffers.length === 0 ? 'cities__places-container--empty' : ''} container`}>
+            {cityOffers.length !== 0 ? (
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+                <b className="places__found">{cityOffers.length} places to stay in Amsterdam</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by </span>
                   <span className="places__sorting-type" tabIndex={0}>
@@ -75,13 +98,13 @@ const MainScreen = ({offers, locations} : MainScreenProps) => {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {offers.map((offer, i) => (
+                  {cityOffers.map((offer, i) => (
                     <PlaceCardComponent
                       key={offer.id}
                       isPremium={offer.isPremium}
                       imageUrl={offer.imageUrl}
                       price={offer.price}
-                      isMarkActive={offer.isMarkActive}
+                      isMarkActive={offer.isFavorite}
                       ratingWidth={offer.ratingWidth}
                       name={offer.name}
                       placeType={offer.placeType}
@@ -98,7 +121,7 @@ const MainScreen = ({offers, locations} : MainScreenProps) => {
               </section>
             )}
             <div className="cities__right-section">
-              {offers.length !== 0 ? <section className="cities__map map"></section> : '' }
+              {cityOffers.length !== 0 ? <section className="cities__map map"></section> : '' }
             </div>
           </div>
         </div>

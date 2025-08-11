@@ -1,18 +1,14 @@
-export type Location = {
-  id: string;
-  city: string;
-  isActive: boolean;
-}
-
 export type Offer = {
   id: string;
   isPremium: boolean;
   imageUrl: string;
+  imageSmallUrl: string;
   price: number;
-  isMarkActive: boolean;
+  isFavorite: boolean;
   ratingWidth: string;
   name: string;
   placeType: string;
+  city: string;
 }
 
 export type Favorite = {

@@ -44,7 +44,7 @@ const FavoritesScreen = ({favorites} : FavoriteScreenProps) => {
               <ul className="favorites__list">
                 {favorites.map((favorite, i) => (
                   <FavoriteListComponent
-                    key={favorite.key}
+                    key={favorite.id}
                     city={favorite.city}
                     places={favorite.places}
                   />
