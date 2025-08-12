@@ -1,4 +1,4 @@
-import {FavoriteList} from "../types/types";
+import {FavoriteList} from '../types/types';
 
 export const FAVORITES:FavoriteList[] = [
   {

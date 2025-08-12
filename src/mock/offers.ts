@@ -1,126 +1,354 @@
-import {Offer} from "../types/types";
+import {Offer} from '../types/types';
 
 export const OFFERS: Offer[] = [
   {
-    id: 'place-1',
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 1,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    isFavorite: false,
     isPremium: true,
-    imageUrl: 'img/apartment-01.jpg',
-    imageSmallUrl: 'img/apartment-small-01.jpg',
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/room-small.jpg',
     price: 120,
-    isFavorite: false,
-    ratingWidth: '80%',
-    name: 'Beautiful &amp; luxurious apartment at great location',
-    placeType: 'Apartment',
-    city: 'Amsterdam',
+    rating: 4.2,
+    title: 'Beautiful &amp; luxurious apartment at great location',
+    type: 'Apartment'
   },
   {
-    id: 'place-2',
-    isPremium: false,
-    imageUrl: 'img/room.jpg',
-    imageSmallUrl: 'img/room-small.jpg',
-    price: 80,
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 2,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
     isFavorite: true,
-    ratingWidth: '80%',
-    name: 'Wood and stone place',
-    placeType: 'Room',
-    city: 'Amsterdam',
+    isPremium: false,
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/apartment-small-03.jpg',
+    price: 80,
+    rating: 3.8,
+    title: 'Wood and stone place',
+    type: 'Room',
   },
   {
-    id: 'place-3',
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 3,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    isFavorite: false,
     isPremium: false,
-    imageUrl: 'img/apartment-02.jpg',
-    imageSmallUrl: 'img/apartment-small-02.jpg',
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/apartment-small-04.jpg',
     price: 132,
-    isFavorite: false,
-    ratingWidth: '80%',
-    name: 'Canal View Prinsengracht',
-    placeType: 'Apartment',
-    city: 'Amsterdam',
+    rating: 3.8,
+    title: 'Canal View Prinsengracht',
+    type: 'Apartment',
   },
   {
-    id: 'place-4',
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 4,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    isFavorite: false,
     isPremium: true,
-    imageUrl: 'img/apartment-03.jpg',
-    imageSmallUrl: 'img/apartment-small-03.jpg',
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/apartment-small-04.jpg',
     price: 180,
-    isFavorite: false,
-    ratingWidth: '100%',
-    name: 'Nice, cozy, warm big bed apartment',
-    placeType: 'Apartment',
-    city: 'Amsterdam',
+    rating: 4.8 ,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'Apartment',
   },
   {
-    id: 'place-5',
-    isPremium: false,
-    imageUrl: 'img/room.jpg',
-    imageSmallUrl: 'img/room-small.jpg',
-    price: 80,
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Amsterdam'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 5,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
     isFavorite: true,
-    ratingWidth: '80%',
-    name: 'Wood and stone place',
-    placeType: 'Room',
-    city: 'Amsterdam',
+    isPremium: false,
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/room-small.jpg',
+    price: 180,
+    rating: 3.8 ,
+    title: 'Wood and stone place',
+    type: 'Room',
   },
   {
-    id: 'place-6',
-    isPremium: false,
-    imageUrl: 'img/apartment-01.jpg',
-    imageSmallUrl: 'img/apartment-small-04.jpg',
-    price: 180,
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Cologne'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 6,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
     isFavorite: true,
-    ratingWidth: '100%',
-    name: 'Nice, cozy, warm big bed apartment',
-    placeType: 'Apartment',
-    city: 'Cologne',
+    isPremium: false,
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/apartment-small-04.jpg',
+    price: 180,
+    rating: 4.6 ,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'Apartment',
   },
   {
-    id: 'place-7',
-    isPremium: false,
-    imageUrl: 'img/apartment-01.jpg',
-    imageSmallUrl: 'img/apartment-small-04.jpg',
-    price: 180,
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Paris'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 7,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
     isFavorite: false,
-    ratingWidth: '100%',
-    name: 'Nice, cozy, warm big bed apartment',
-    placeType: 'Apartment',
-    city: 'Paris',
+    isPremium: false,
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/apartment-small-04.jpg',
+    price: 180,
+    rating: 4.6 ,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'Apartment',
   },
   {
-    id: 'place-8',
-    isPremium: false,
-    imageUrl: 'img/apartment-01.jpg',
-    imageSmallUrl: 'img/apartment-small-04.jpg',
-    price: 180,
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Brussels'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 8,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
     isFavorite: false,
-    ratingWidth: '100%',
-    name: 'Nice, cozy, warm big bed apartment',
-    placeType: 'Apartment',
-    city: 'Brussels',
+    isPremium: false,
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/apartment-small-04.jpg',
+    price: 180,
+    rating: 4.6 ,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'Apartment',
   },
   {
-    id: 'place-9',
-    isPremium: false,
-    imageUrl: 'img/apartment-01.jpg',
-    imageSmallUrl: 'img/apartment-small-04.jpg',
-    price: 180,
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Hamburg'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 9,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
     isFavorite: false,
-    ratingWidth: '100%',
-    name: 'Nice, cozy, warm big bed apartment',
-    placeType: 'Apartment',
-    city: 'Hamburg',
+    isPremium: false,
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/apartment-small-04.jpg',
+    price: 180,
+    rating: 4.6 ,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'Apartment',
   },
   {
-    id: 'place-10',
-    isPremium: false,
-    imageUrl: 'img/apartment-01.jpg',
-    imageSmallUrl: 'img/apartment-small-04.jpg',
-    price: 180,
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: 'Dusseldorf'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatar_url: 'img/avatar-angelina.jpg',
+      id: 3,
+      is_pro: true,
+      name: 'Angelina'
+    },
+    id: 10,
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
     isFavorite: false,
-    ratingWidth: '100%',
-    name: 'Nice, cozy, warm big bed apartment',
-    placeType: 'Apartment',
-    city: 'Dusseldorf',
-  },
+    isPremium: false,
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    max_adults: 4,
+    preview_image: 'img/apartment-small-04.jpg',
+    price: 180,
+    rating: 4.6 ,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'Apartment',
+  }
 ];
 
 export const OFFERS_EMPTY = [];
+
+
+
+
+
+
+
+

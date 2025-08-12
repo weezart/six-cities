@@ -7,7 +7,7 @@ type MainScreenProps = {
 }
 
 const MainScreen = ({offers} : MainScreenProps) => {
-  const cityOffers = offers.filter((offer) => offer.city === 'Amsterdam');
+  const cityOffers = offers.filter((offer) => offer.city.name === 'Amsterdam');
 
   return (
     <div className="page page--gray page--main">
@@ -81,7 +81,7 @@ const MainScreen = ({offers} : MainScreenProps) => {
             {cityOffers.length !== 0 ? (
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{cityOffers.length} places to stay in Amsterdam</b>
+                <b className="places__found">{cityOffers.length} places to stay in {cityOffers[0].city.name}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by </span>
                   <span className="places__sorting-type" tabIndex={0}>
@@ -102,12 +102,12 @@ const MainScreen = ({offers} : MainScreenProps) => {
                     <PlaceCardComponent
                       key={offer.id}
                       isPremium={offer.isPremium}
-                      imageUrl={offer.imageUrl}
+                      imageUrl={offer.images[Math.floor(Math.random() * offer.images.length)]}
                       price={offer.price}
                       isMarkActive={offer.isFavorite}
-                      ratingWidth={offer.ratingWidth}
-                      name={offer.name}
-                      placeType={offer.placeType}
+                      ratingWidth={Math.round(offer.rating / 5 * 20) * 5 + '%'}
+                      name={offer.title}
+                      placeType={offer.type}
                     />
                   ))}
                 </div>

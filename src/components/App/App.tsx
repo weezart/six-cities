@@ -7,6 +7,7 @@ import FavoritesScreen from '../../pages/Favorites-screen/Favorites-screen';
 import OfferScreen from '../../pages/Offer-screen/Offer-screen';
 import NotFoundScreen from '../../pages/Not-found-screen/Not-found-screen';
 import {OFFERS} from '../../mock/offers';
+import {FAVORITES} from '../../mock/favorite';
 
 const isLogged = true;
 
@@ -28,7 +29,7 @@ const App = () => {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <FavoritesScreen offers={OFFERS} />
+              <FavoritesScreen favorites={FAVORITES} />
             </PrivateRoute>
           }
         />
