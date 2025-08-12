@@ -1,16 +1,3 @@
-export type OfferOld = {
-  id: string;
-  isPremium: boolean;
-  imageUrl: string;
-  imageSmallUrl: string;
-  price: number;
-  isFavorite: boolean;
-  ratingWidth: string;
-  name: string;
-  placeType: string;
-  city: string;
-}
-
 type Location = {
   latitude: number,
   longitude: number,
@@ -23,9 +10,9 @@ type City =  {
 }
 
 type Host =  {
-  avatar_url: string,
+  avatarUrl: string,
   id: number,
-  is_pro: boolean,
+  isPro: boolean,
   name: string
 }
 

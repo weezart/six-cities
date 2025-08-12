@@ -35,7 +35,7 @@ const App = () => {
         />
         <Route
           path={AppRoute.Offer}
-          element={<OfferScreen isLogged={isLogged} />}
+          element={<OfferScreen offers={OFFERS} isLogged={isLogged} />}
         />
         <Route
           path="*"

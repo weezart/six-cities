@@ -14,9 +14,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 1,
@@ -48,9 +48,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 2,
@@ -82,9 +82,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 3,
@@ -116,9 +116,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 4,
@@ -150,9 +150,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 5,
@@ -184,9 +184,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 6,
@@ -218,9 +218,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 7,
@@ -252,9 +252,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 8,
@@ -286,9 +286,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 9,
@@ -320,9 +320,9 @@ export const OFFERS: Offer[] = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatar_url: 'img/avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
-      is_pro: true,
+      isPro: true,
       name: 'Angelina'
     },
     id: 10,
