@@ -1,13 +1,14 @@
-import {Favorite} from "../../types/types";
+import {Offer} from "../../types/types";
+import {Link} from 'react-router-dom';
 
-const FavoritePlaceComponent = ({isPremium, imageUrl, price, ratingWidth, name, placeType} : Favorite) => {
+const FavoritePlaceComponent = ({id, isPremium, imageUrl, price, ratingWidth, name, placeType} : Offer) => {
   return (
     <article className="favorites__card place-card">
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="/">
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={imageUrl} width="150" height="110" alt="Place img" />
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -29,7 +30,7 @@ const FavoritePlaceComponent = ({isPremium, imageUrl, price, ratingWidth, name, 
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{name}</a>
+          <Link to={`/offer/${id}`}>{name}</Link>
         </h2>
         <p className="place-card__type">{placeType}</p>
       </div>

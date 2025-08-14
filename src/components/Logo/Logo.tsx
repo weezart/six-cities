@@ -4,7 +4,7 @@ type LogoProps = {
   linkClass: string;
 }
 
-const Logo = ({linkClass} : LogoProps) => {
+const LogoComponent = ({linkClass} : LogoProps) => {
   return (
     <Link to="/" className={linkClass}>
       <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
@@ -12,4 +12,4 @@ const Logo = ({linkClass} : LogoProps) => {
   );
 }
 
-export default Logo;
+export default LogoComponent;

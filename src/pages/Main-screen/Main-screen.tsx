@@ -1,42 +1,20 @@
 import PlaceCardComponent from '../../components/Place-card/Place-card';
-import Logo from '../../components/Logo/Logo';
+import HeaderComponent from '../../components/Header/Header';
 import {Offer} from "../../types/types";
 
+
 type MainScreenProps = {
+  isLogged: boolean;
   offers: Offer[];
 }
 
-const MainScreen = ({offers} : MainScreenProps) => {
+const MainScreen = ({isLogged, offers} : MainScreenProps) => {
   const cityOffers = offers.filter((offer) => offer.city.name === 'Amsterdam');
+  const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
 
   return (
     <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo linkClass={'header__logo-link header__logo-link--active'} />
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <HeaderComponent isLogged={isLogged} favoritesCount={favoritesCount} />
 
       <main className={`page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
@@ -101,6 +79,7 @@ const MainScreen = ({offers} : MainScreenProps) => {
                   {cityOffers.map((offer, i) => (
                     <PlaceCardComponent
                       key={offer.id}
+                      id={offer.id}
                       isPremium={offer.isPremium}
                       imageUrl={offer.images[Math.floor(Math.random() * offer.images.length)]}
                       price={offer.price}

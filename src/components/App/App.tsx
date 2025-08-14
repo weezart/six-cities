@@ -7,21 +7,22 @@ import FavoritesScreen from '../../pages/Favorites-screen/Favorites-screen';
 import OfferScreen from '../../pages/Offer-screen/Offer-screen';
 import NotFoundScreen from '../../pages/Not-found-screen/Not-found-screen';
 import {OFFERS} from '../../mock/offers';
-import {FAVORITES} from '../../mock/favorite';
 
 const isLogged = true;
 
 const App = () => {
+  const FAVORITES = OFFERS.filter((offer) => offer.isFavorite);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen offers={OFFERS} />}
+          element={<MainScreen offers={OFFERS}  isLogged={isLogged}/>}
         />
         <Route
           path={AppRoute.Login}
-          element={<LoginScreen />}
+          element={<LoginScreen/>}
         />
         <Route
           path={AppRoute.Favorites}
@@ -29,17 +30,17 @@ const App = () => {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <FavoritesScreen favorites={FAVORITES} />
+              <FavoritesScreen favorites={FAVORITES} isLogged={isLogged}/>
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Offer}
-          element={<OfferScreen offers={OFFERS} isLogged={isLogged} />}
+          element={<OfferScreen offers={OFFERS} isLogged={isLogged}/>}
         />
         <Route
           path="*"
-          element={<NotFoundScreen />}
+          element={<NotFoundScreen/>}
         />
       </Routes>
     </BrowserRouter>

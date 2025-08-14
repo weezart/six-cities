@@ -29,7 +29,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/room-small.jpg',
+    previewImage: 'img/room-small.jpg',
     price: 120,
     rating: 4.2,
     title: 'Beautiful &amp; luxurious apartment at great location',
@@ -63,7 +63,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/apartment-small-03.jpg',
+    previewImage: 'img/apartment-small-03.jpg',
     price: 80,
     rating: 3.8,
     title: 'Wood and stone place',
@@ -97,7 +97,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/apartment-small-04.jpg',
+    previewImage: 'img/apartment-small-04.jpg',
     price: 132,
     rating: 3.8,
     title: 'Canal View Prinsengracht',
@@ -131,7 +131,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/apartment-small-04.jpg',
+    previewImage: 'img/apartment-small-04.jpg',
     price: 180,
     rating: 4.8 ,
     title: 'Nice, cozy, warm big bed apartment',
@@ -165,7 +165,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/room-small.jpg',
+    previewImage: 'img/room-small.jpg',
     price: 180,
     rating: 3.8 ,
     title: 'Wood and stone place',
@@ -199,7 +199,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/apartment-small-04.jpg',
+    previewImage: 'img/apartment-small-04.jpg',
     price: 180,
     rating: 4.6 ,
     title: 'Nice, cozy, warm big bed apartment',
@@ -233,7 +233,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/apartment-small-04.jpg',
+    previewImage: 'img/apartment-small-04.jpg',
     price: 180,
     rating: 4.6 ,
     title: 'Nice, cozy, warm big bed apartment',
@@ -267,7 +267,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/apartment-small-04.jpg',
+    previewImage: 'img/apartment-small-04.jpg',
     price: 180,
     rating: 4.6 ,
     title: 'Nice, cozy, warm big bed apartment',
@@ -301,7 +301,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/apartment-small-04.jpg',
+    previewImage: 'img/apartment-small-04.jpg',
     price: 180,
     rating: 4.6 ,
     title: 'Nice, cozy, warm big bed apartment',
@@ -335,7 +335,7 @@ export const OFFERS: Offer[] = [
       zoom: 8
     },
     max_adults: 4,
-    preview_image: 'img/apartment-small-04.jpg',
+    previewImage: 'img/apartment-small-04.jpg',
     price: 180,
     rating: 4.6 ,
     title: 'Nice, cozy, warm big bed apartment',

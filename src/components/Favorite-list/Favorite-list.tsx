@@ -1,7 +1,13 @@
 import FavoritePlaceComponent from '../favorite-place/favorite-place';
-import {FavoriteList} from "../../types/types";
+import {Offer} from "../../types/types";
 
-const FavoriteListComponent = ({city, places} : FavoriteList) => {
+type FavoriteListScreen = {
+  city: string;
+  offers: Offer[];
+}
+
+const FavoriteListComponent = ({city, offers} : FavoriteListScreen) => {
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -12,15 +18,16 @@ const FavoriteListComponent = ({city, places} : FavoriteList) => {
         </div>
       </div>
       <div className="favorites__places">
-        {places.map((place, i) => (
+        {offers.map((place, i) => (
           <FavoritePlaceComponent
             key={place.id}
+            id={place.id}
             isPremium={place.isPremium}
-            imageUrl={place.imageUrl}
+            imageUrl={place.previewImage}
             price={place.price}
-            ratingWidth={place.ratingWidth}
-            name={place.name}
-            placeType={place.placeType}
+            ratingWidth={Math.round(place.rating / 5 * 20) * 5 + '%'}
+            name={place.title}
+            placeType={place.type}
           />
         ))}
       </div>

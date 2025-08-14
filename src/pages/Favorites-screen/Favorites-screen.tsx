@@ -1,40 +1,22 @@
 import FavoriteListComponent from '../../components/Favorite-list/Favorite-list';
-import Logo from '../../components/Logo/Logo';
-import {FavoriteList} from "../../types/types";
+import {Offer} from "../../types/types";
+import HeaderComponent from '../../components/Header/Header';
 
 type FavoriteScreenProps = {
-  favorites: FavoriteList[];
+  isLogged: boolean;
+  favorites: Offer[];
 }
 
-const FavoritesScreen = ({favorites} : FavoriteScreenProps) => {
+const FavoritesScreen = ({isLogged, favorites} : FavoriteScreenProps) => {
+  const cities = new Set();
+
+  for (let item of favorites) {
+    cities.add(item.city.name);
+  }
+
   return (
     <div className={`page ${favorites.length === 0 ? 'page--favorites-empty' : ''}`}>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo linkClass={'header__logo-link'} />
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">{favorites.length === 0 ? '0' : '3'}</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <HeaderComponent isLogged={isLogged} favoritesCount={favorites.length} />
 
       <main className={`page__main page__main--favorites ${favorites.length === 0 ? 'page__main--favorites-empty' : ''}`}>
         <div className="page__favorites-container container">
@@ -42,11 +24,11 @@ const FavoritesScreen = ({favorites} : FavoriteScreenProps) => {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {favorites.map((favorite, i) => (
+                {[...cities].map((city, i) => (
                   <FavoriteListComponent
-                    key={favorite.id}
-                    city={favorite.city}
-                    places={favorite.places}
+                    key={`city-${city}`}
+                    city={city}
+                    offers={favorites.filter((offer) => offer.city.name === city)}
                   />
                 ))}
               </ul>

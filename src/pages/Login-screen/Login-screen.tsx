@@ -1,4 +1,4 @@
-import Logo from '../../components/Logo/Logo';
+import LogoComponent from '../../components/Logo/Logo';
 
 const LoginScreen = () => {
   return (
@@ -7,7 +7,7 @@ const LoginScreen = () => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo linkClass={'header__logo-link'} />
+              <LogoComponent linkClass={'header__logo-link'} />
             </div>
           </div>
         </div>

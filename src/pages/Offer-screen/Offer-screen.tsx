@@ -1,7 +1,6 @@
-import Logo from '../../components/Logo/Logo';
 import {useParams} from 'react-router-dom';
 import {Offer} from "../../types/types";
-import PlaceCardComponent from "../../components/Place-card/Place-card";
+import HeaderComponent from '../../components/Header/Header';
 
 type OfferScreenProps = {
   isLogged: boolean;
@@ -15,49 +14,13 @@ type OfferRouteParams = {
 const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
   const urlParams = useParams<OfferRouteParams>();
   const placeId = urlParams.id ?? 1;
+  const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
   const selectedOffer = offers[placeId];
   const { id, images, isPremium, title, isFavorite, rating, price, type, bedrooms, maxAdults, goods, host, description } = selectedOffer;
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo linkClass={'header__logo-link'}/>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                {isLogged === true ? (
-                  <>
-                    <li className="header__nav-item user">
-                      <a className="header__nav-link header__nav-link--profile" href="/">
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                        </div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                        <span className="header__favorite-count">3</span>
-                      </a>
-                    </li>
-                    <li className="header__nav-item">
-                      <a className="header__nav-link" href="/">
-                        <span className="header__signout">Sign out</span>
-                      </a>
-                    </li>
-                  </>
-                ) : (
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="/">
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <span className="header__login">Sign in</span>
-                    </a>
-                  </li>
-                )}
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <HeaderComponent isLogged={isLogged} favoritesCount={favoritesCount} />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">

@@ -28,7 +28,7 @@ export type Offer =  {
   isPremium: boolean,
   location: Location,
   max_adults: number,
-  preview_image: string,
+  previewImage: string,
   price: number,
   rating: number,
   title: string,

@@ -1,13 +1,14 @@
 import {Offer} from "../../types/types";
+import {Link} from 'react-router-dom';
 
-const PlaceCardComponent =({isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType} : Offer) => {
+const PlaceCardComponent =({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType} : Offer) => {
   return (
     <article className="cities__card place-card">
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="/">
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={imageUrl} width="260" height="200" alt="Place img" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -29,7 +30,7 @@ const PlaceCardComponent =({isPremium, imageUrl, price, isMarkActive, ratingWidt
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{name}</a>
+          <Link to={`/offer/${id}`}>{name}</Link>
         </h2>
         <p className="place-card__type">{placeType}</p>
       </div>
