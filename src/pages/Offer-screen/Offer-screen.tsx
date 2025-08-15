@@ -15,8 +15,8 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
   const urlParams = useParams<OfferRouteParams>();
   const placeId = urlParams.id ?? 1;
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
-  const selectedOffer = offers[placeId];
-  const { id, images, isPremium, title, isFavorite, rating, price, type, bedrooms, maxAdults, goods, host, description } = selectedOffer;
+  const selectedOffer = offers.filter((offer) => offer.id == placeId)[0];
+  const { images, isPremium, title, isFavorite, rating, price, type, bedrooms, maxAdults, goods, host, description } = selectedOffer;
 
   return (
     <div className="page">
@@ -26,7 +26,7 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
               {images.map((image, i) => (
-                <div className="offer__image-wrapper">
+                <div key={`image-${i}`} className="offer__image-wrapper">
                   <img className="offer__image" src={image} alt="Фото студия"/>
                 </div>
               ))}
@@ -77,7 +77,7 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
                   {goods.map((good, i) => (
-                    <li className="offer__inside-item">
+                    <li key={`good-${i}`} className="offer__inside-item">
                       {good}
                     </li>
                   ))}

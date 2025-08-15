@@ -327,8 +327,8 @@ export const OFFERS: Offer[] = [
     },
     id: 10,
     images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
-    isFavorite: false,
-    isPremium: false,
+    isFavorite: true,
+    isPremium: true,
     location: {
       latitude: 52.35514938496378,
       longitude: 4.673877537499948,
