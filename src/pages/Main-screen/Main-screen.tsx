@@ -1,15 +1,18 @@
 import PlaceCardComponent from '../../components/Place-card/Place-card';
 import HeaderComponent from '../../components/Header/Header';
+import LocationComponent from '../../components/Location/Location';
 import {Offer} from "../../types/types";
+import {CITIES} from '../../const';
 
 
 type MainScreenProps = {
   isLogged: boolean;
+  city: string;
   offers: Offer[];
 }
 
-const MainScreen = ({isLogged, offers} : MainScreenProps) => {
-  const cityOffers = offers.filter((offer) => offer.city.name === 'Amsterdam');
+const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
+  const cityOffers = offers.filter((offer) => offer.city.name === city);
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
 
   return (
@@ -17,40 +20,17 @@ const MainScreen = ({isLogged, offers} : MainScreenProps) => {
       <HeaderComponent isLogged={isLogged} favoritesCount={favoritesCount} />
 
       <main className={`page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`}>
-        <h1 className="visually-hidden">Cities</h1>
+        <h1 className="visually-hidden">Cities {city}</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {CITIES.map((citiesItem, i) => (
+                <LocationComponent
+                  key={`city-${citiesItem}`}
+                  isActive={city === citiesItem}
+                  city={citiesItem}
+                />
+              ))}
             </ul>
           </section>
         </div>

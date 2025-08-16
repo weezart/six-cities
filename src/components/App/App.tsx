@@ -1,5 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, CITIES} from '../../const';
 import PrivateRoute from '../Private-route/Private-route';
 import MainScreen from '../../pages/Main-screen/Main-screen';
 import LoginScreen from '../../pages/Login-screen/Login-screen';
@@ -18,8 +18,15 @@ const App = () => {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen offers={OFFERS}  isLogged={isLogged}/>}
+          element={<MainScreen offers={OFFERS} city={CITIES[0]} isLogged={isLogged}/>}
         />
+        {CITIES.map((city, i) => (
+          <Route
+            key={`city-${city}`}
+            path={`${AppRoute.Root + city}`}
+            element={<MainScreen offers={OFFERS} city={city} isLogged={isLogged}/>}
+          />
+        ))}
         <Route
           path={AppRoute.Login}
           element={<LoginScreen/>}

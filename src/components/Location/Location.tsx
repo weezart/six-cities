@@ -1,11 +1,16 @@
-import {Location} from "../../types/types";
+import {Link} from 'react-router-dom';
 
-const LocationComponent = ({city, isActive} : Location) => {
+type LocationProps = {
+  isActive: boolean;
+  city: string;
+}
+
+const LocationComponent = ({isActive, city} : LocationProps) => {
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} href="/">
+      <Link className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} to={`/${city}`}>
         <span>{city}</span>
-      </a>
+      </Link>
     </li>
   );
 }
