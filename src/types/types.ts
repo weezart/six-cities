@@ -44,4 +44,5 @@ export type PlaceCardProps = {
   ratingWidth: string;
   name: string;
   placeType: string;
+  setActiveCard: (id: number) => void
 }

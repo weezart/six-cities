@@ -3,6 +3,7 @@ import HeaderComponent from '../../components/Header/Header';
 import LocationComponent from '../../components/Location/Location';
 import {Offer} from "../../types/types";
 import {CITIES} from '../../const';
+import { useState } from 'react';
 
 
 type MainScreenProps = {
@@ -14,6 +15,7 @@ type MainScreenProps = {
 const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
   const cityOffers = offers.filter((offer) => offer.city.name === city);
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
+  const [activeCard, setActiveCard] = useState(0);
 
   return (
     <div className="page page--gray page--main">
@@ -40,6 +42,7 @@ const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{cityOffers.length} places to stay in {cityOffers[0].city.name}</b>
+                <div className="test">{activeCard}</div>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by </span>
                   <span className="places__sorting-type" tabIndex={0}>
@@ -67,6 +70,7 @@ const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
                       ratingWidth={Math.round(offer.rating / 5 * 20) * 5 + '%'}
                       name={offer.title}
                       placeType={offer.type}
+                      setActiveCard={() => {setActiveCard(offer.id)}}
                     />
                   ))}
                 </div>

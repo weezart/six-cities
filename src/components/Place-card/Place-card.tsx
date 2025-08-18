@@ -1,9 +1,10 @@
 import {Link} from 'react-router-dom';
 import {PlaceCardProps} from "../../types/types";
 
-const PlaceCardComponent =({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType} : PlaceCardProps) => {
+const PlaceCardComponent =({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType, setActiveCard} : PlaceCardProps) => {
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={() => {setActiveCard(id);}}
+    >
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
