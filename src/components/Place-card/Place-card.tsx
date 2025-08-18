@@ -1,7 +1,7 @@
-import {Offer} from "../../types/types";
 import {Link} from 'react-router-dom';
+import {PlaceCardProps} from "../../types/types";
 
-const PlaceCardComponent =({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType} : Offer) => {
+const PlaceCardComponent =({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType} : PlaceCardProps) => {
   return (
     <article className="cities__card place-card">
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}

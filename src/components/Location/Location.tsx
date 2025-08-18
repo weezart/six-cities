@@ -8,9 +8,9 @@ type LocationProps = {
 const LocationComponent = ({isActive, city} : LocationProps) => {
   return (
     <li className="locations__item">
-      <Link className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} to={`/${city}`}>
+      <a className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} href={`/${city}`}>
         <span>{city}</span>
-      </Link>
+      </a>
     </li>
   );
 }
