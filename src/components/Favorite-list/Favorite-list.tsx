@@ -1,5 +1,5 @@
 import FavoritePlaceComponent from '../favorite-place/favorite-place';
-import {Offer} from "../../types/types";
+import {Offer} from '../../types/types';
 import {Link} from 'react-router-dom';
 
 type FavoriteListScreen = {

@@ -20,7 +20,7 @@ const App = () => {
           path={AppRoute.Root}
           element={<MainScreen offers={OFFERS} city={CITIES[0]} isLogged={isLogged}/>}
         />
-        {CITIES.map((city, i) => (
+        {CITIES.map((city) => (
           <Route
             key={`city-${city}`}
             path={`${AppRoute.Root + city}`}
@@ -52,6 +52,6 @@ const App = () => {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
