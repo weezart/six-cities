@@ -1,4 +1,4 @@
-import FavoritePlaceComponent from '../favorite-place/favorite-place';
+import FavoritePlaceComponent from '../Favorite-place/Favorite-place';
 import {Offer} from '../../types/types';
 import {Link} from 'react-router-dom';
 
@@ -24,9 +24,11 @@ const FavoriteListComponent = ({city, offers} : FavoriteListScreen) => (
           isPremium={place.isPremium}
           imageUrl={place.previewImage}
           price={place.price}
+          isMarkActive
           ratingWidth={`${Math.round(place.rating / 5 * 20) * 5}%`}
           name={place.title}
           placeType={place.type}
+          setActiveCard={() => undefined}
         />
       ))}
     </div>

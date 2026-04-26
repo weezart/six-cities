@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 module.exports = {
-  env: { browser: true, es2022: true },
+  env: {browser: true, es2022: true},
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -9,16 +9,17 @@ module.exports = {
     "htmlacademy/react-typescript",
   ],
   parser: '@typescript-eslint/parser',
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module', project: 'tsconfig.json' },
-  settings: { react: { version: 'detect' } },
+  parserOptions: {ecmaVersion: 'latest', sourceType: 'module', project: 'tsconfig.json'},
+  settings: {react: {version: 'detect'}},
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': 'warn',
   },
   overrides: [
     {
-      files: [ '*test*' ],
-      rules: { '@typescript-eslint/unbound-method': 'off' }
+      files: ['*test*'],
+      rules: {'@typescript-eslint/unbound-method': 'off'}
     },
   ],
+  ignorePatterns: ["vitest.setup.ts", "vitest.config.ts"]
 }

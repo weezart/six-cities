@@ -1,8 +1,8 @@
 import {PlaceCardProps} from '../../types/types';
 import {Link} from 'react-router-dom';
 
-const FavoritePlaceComponent = ({id, isPremium, imageUrl, price, ratingWidth, name, placeType} : PlaceCardProps) => (
-  <article className="favorites__card place-card">
+const FavoritePlaceComponent = ({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType, setActiveCard} : PlaceCardProps) => (
+  <article className="favorites__card place-card" onMouseOver={() => setActiveCard(id)}>
     {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
     <div className="favorites__image-wrapper place-card__image-wrapper">
       <Link to={`/offer/${id}`}>
@@ -15,7 +15,7 @@ const FavoritePlaceComponent = ({id, isPremium, imageUrl, price, ratingWidth, na
           <b className="place-card__price-value">&euro;{price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
-        <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+        <button className={`place-card__bookmark-button button ${isMarkActive ? 'place-card__bookmark-button--active' : ''}`} type="button">
           <svg className="place-card__bookmark-icon" width="18" height="19">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
