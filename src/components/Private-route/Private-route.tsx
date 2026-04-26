@@ -14,6 +14,6 @@ const PrivateRoute = (props: PrivateRouteProps) => {
       ? children
       : <Navigate to={AppRoute.Login} />
   );
-}
+};
 
 export default PrivateRoute;

@@ -1,8 +1,8 @@
 import {useParams} from 'react-router-dom';
-import {Offer} from "../../types/types";
+import {Offer} from '../../types/types';
 import HeaderComponent from '../../components/Header/Header';
-import NearPlaceCardComponent from "../../components/Place-card/Near-place-card";
-import ReviewFormComponent from "../../components/ReviewForm/ReviewForm";
+import NearPlaceCardComponent from '../../components/Place-card/Near-place-card';
+import ReviewFormComponent from '../../components/ReviewForm/ReviewForm';
 import { useState } from 'react';
 
 type OfferScreenProps = {
@@ -11,15 +11,15 @@ type OfferScreenProps = {
 }
 
 type OfferRouteParams = {
-  id: number;
+  id: string;
 };
 
 const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
   const urlParams = useParams<OfferRouteParams>();
-  const placeId = urlParams.id ?? 1;
+  const placeId = Number(urlParams.id ?? 1);
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
-  const selectedOffer = offers.filter((offer) => offer.id == placeId)[0];
-  const NearOffers = offers.filter((offer) => offer.city.name ===  selectedOffer.city.name && offer.id !== selectedOffer.id);
+  const selectedOffer = offers.filter((offer) => offer.id === placeId)[0];
+  const NearOffers = offers.filter((offer) => offer.city.name === selectedOffer.city.name && offer.id !== selectedOffer.id);
   const { images, isPremium, title, isFavorite, rating, price, type, bedrooms, maxAdults, goods, host, description } = selectedOffer;
   const [activeCard, setActiveCard] = useState(0);
 
@@ -28,10 +28,11 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
       <HeaderComponent isLogged={isLogged} favoritesCount={favoritesCount} />
       <main className="page__main page__main--offer">
         <section className="offer">
+          <div className="test">{activeCard}</div>
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image, i) => (
-                <div key={`image-${i}`} className="offer__image-wrapper">
+              {images.map((image) => (
+                <div key={image} className="offer__image-wrapper">
                   <img className="offer__image" src={image} alt="Фото студия"/>
                 </div>
               ))}
@@ -41,7 +42,7 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
             <div className="offer__wrapper">
               {isPremium &&
                       <div className="offer__mark">
-                          <span>Premium</span>
+                        <span>Premium</span>
                       </div>}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
@@ -49,7 +50,8 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                 </h1>
                 <button
                   className={`offer__bookmark-button ${isFavorite ? 'offer__bookmark-button--active' : ''} button`}
-                  type="button">
+                  type="button"
+                >
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -58,7 +60,7 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: Math.round(rating / 5 * 20) * 5 + '%'}}></span>
+                  <span style={`width: ${Math.round(rating / 5 * 20) * 5}%`}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">rating</span>
@@ -81,8 +83,8 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {goods.map((good, i) => (
-                    <li key={`good-${i}`} className="offer__inside-item">
+                  {goods.map((good) => (
+                    <li key={good} className="offer__inside-item">
                       {good}
                     </li>
                   ))}
@@ -92,8 +94,10 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74"
-                         alt="Host avatar"/>
+                    <img
+                      className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74"
+                      alt="Host avatar"
+                    />
                   </div>
                   <span className="offer__user-name">
                     {host.name}
@@ -115,8 +119,13 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                   <li className="reviews__item">
                     <div className="reviews__user user">
                       <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54"
-                             alt="Reviews avatar"/>
+                        <img
+                          className="reviews__avatar user__avatar"
+                          src="img/avatar-max.jpg"
+                          width="54"
+                          height="54"
+                          alt="Reviews avatar"
+                        />
                       </div>
                       <span className="reviews__user-name">
                         Max
@@ -147,7 +156,7 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {NearOffers.map((offer, i) => (
+              {NearOffers.map((offer) => (
                 <NearPlaceCardComponent
                   key={offer.id}
                   id={offer.id}
@@ -155,10 +164,10 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                   imageUrl={offer.images[Math.floor(Math.random() * offer.images.length)]}
                   price={offer.price}
                   isMarkActive={offer.isFavorite}
-                  ratingWidth={Math.round(offer.rating / 5 * 20) * 5 + '%'}
+                  ratingWidth={`${Math.round(offer.rating / 5 * 20) * 5}%`}
                   name={offer.title}
                   placeType={offer.type}
-                  setActiveCard={() => {setActiveCard(offer.id)}}
+                  setActiveCard={() => setActiveCard(offer.id)}
                 />
               ))}
             </div>
@@ -167,6 +176,6 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
       </main>
     </div>
   );
-}
+};
 
 export default OfferScreen;

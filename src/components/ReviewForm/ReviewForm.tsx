@@ -1,4 +1,4 @@
-import RatingInputComponent from "../Rating-input/Rating-input";
+import RatingInputComponent from '../Rating-input/Rating-input';
 import { useState } from 'react';
 
 const ReviewFormComponent = () => {
@@ -25,15 +25,14 @@ const ReviewFormComponent = () => {
         <RatingInputComponent count={2} title={'badly'} setRating={() => setStars(2)} />
         <RatingInputComponent count={1} title={'terribly'} setRating={() => setStars(1)} />
       </div>
-      <textarea  onChange={(e) => {
-        console.log("Text");
-        const newText = e.target.value
-        console.log(newText);
-        newText ? setText(newText) : null;
-      }}  className="reviews__textarea form__textarea" id="review" name="review"
-                placeholder="Tell how was your stay, what you like and what can be improved"
-      >
-                    </textarea>
+      <textarea
+        onChange={(e) => {
+          const newText = e.target.value;
+          setText(newText);
+        }}
+        className="reviews__textarea form__textarea" id="review" name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
@@ -44,6 +43,6 @@ const ReviewFormComponent = () => {
       Ваша оценка: {ReviewState.stars} Ваш отзыв: {ReviewState.text}
     </form>
   );
-}
+};
 
 export default ReviewFormComponent;

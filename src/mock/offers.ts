@@ -20,7 +20,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 1,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -28,7 +28,7 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/room-small.jpg',
     price: 120,
     rating: 4.2,
@@ -54,7 +54,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 2,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: true,
     isPremium: false,
     location: {
@@ -62,7 +62,7 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/apartment-small-03.jpg',
     price: 80,
     rating: 3.8,
@@ -88,7 +88,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 3,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -96,7 +96,7 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/apartment-small-04.jpg',
     price: 132,
     rating: 3.8,
@@ -122,7 +122,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 4,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -130,10 +130,10 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/apartment-small-04.jpg',
     price: 180,
-    rating: 4.8 ,
+    rating: 4.8,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'Apartment',
   },
@@ -156,7 +156,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 5,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: true,
     isPremium: false,
     location: {
@@ -164,10 +164,10 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/room-small.jpg',
     price: 180,
-    rating: 3.8 ,
+    rating: 3.8,
     title: 'Wood and stone place',
     type: 'Room',
   },
@@ -190,7 +190,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 6,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: true,
     isPremium: false,
     location: {
@@ -198,10 +198,10 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/apartment-small-04.jpg',
     price: 180,
-    rating: 4.6 ,
+    rating: 4.6,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'Apartment',
   },
@@ -224,7 +224,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 7,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -232,10 +232,10 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/apartment-small-04.jpg',
     price: 180,
-    rating: 4.6 ,
+    rating: 4.6,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'Apartment',
   },
@@ -258,7 +258,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 8,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -266,10 +266,10 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/apartment-small-04.jpg',
     price: 180,
-    rating: 4.6 ,
+    rating: 4.6,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'Apartment',
   },
@@ -292,7 +292,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 9,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -300,10 +300,10 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/apartment-small-04.jpg',
     price: 180,
-    rating: 4.6 ,
+    rating: 4.6,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'Apartment',
   },
@@ -326,7 +326,7 @@ export const OFFERS: Offer[] = [
       name: 'Angelina'
     },
     id: 10,
-    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg',  'img/apartment-02.jpg'],
+    images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: true,
     isPremium: true,
     location: {
@@ -334,21 +334,13 @@ export const OFFERS: Offer[] = [
       longitude: 4.673877537499948,
       zoom: 8
     },
-    max_adults: 4,
+    maxAdults: 4,
     previewImage: 'img/apartment-small-04.jpg',
     price: 180,
-    rating: 4.6 ,
+    rating: 4.6,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'Apartment',
   }
 ];
 
 export const OFFERS_EMPTY = [];
-
-
-
-
-
-
-
-
