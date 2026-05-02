@@ -1,25 +1,23 @@
 import {Link} from 'react-router-dom';
 import Logo from '../../components/Logo/Logo';
 
-const NotFoundScreen = () => {
-  return (
-    <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo linkClass={'header__logo-link'} />
-            </div>
+const NotFoundScreen = () => (
+  <div className="page page--gray page--login">
+    <header className="header">
+      <div className="container">
+        <div className="header__wrapper">
+          <div className="header__left">
+            <Logo isActive={false} />
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <main className="page__main">
-        <h1>404. Page not found</h1>
-        <Link to="/">Вернуться на главную</Link>
-      </main>
-    </div>
-  );
-}
+    <main className="page__main">
+      <h1>404. Page not found</h1>
+      <Link to="/">Вернуться на главную</Link>
+    </main>
+  </div>
+);
 
 export default NotFoundScreen;

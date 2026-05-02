@@ -1,7 +1,8 @@
 import PlaceCardComponent from '../../components/Place-card/Place-card';
 import HeaderComponent from '../../components/Header/Header';
 import LocationComponent from '../../components/Location/Location';
-import {Offer} from "../../types/types";
+import Map from '../../components/Map/Map';
+import {Offer} from '../../types/types';
 import {CITIES} from '../../const';
 import { useState } from 'react';
 
@@ -26,7 +27,7 @@ const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {CITIES.map((citiesItem, i) => (
+              {CITIES.map((citiesItem) => (
                 <LocationComponent
                   key={`city-${citiesItem}`}
                   isActive={city === citiesItem}
@@ -59,7 +60,7 @@ const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {cityOffers.map((offer, i) => (
+                  {cityOffers.map((offer) => (
                     <PlaceCardComponent
                       key={offer.id}
                       id={offer.id}
@@ -67,10 +68,12 @@ const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
                       imageUrl={offer.images[Math.floor(Math.random() * offer.images.length)]}
                       price={offer.price}
                       isMarkActive={offer.isFavorite}
-                      ratingWidth={Math.round(offer.rating / 5 * 20) * 5 + '%'}
+                      ratingWidth={`${Math.round(offer.rating / 5 * 20) * 5}%`}
                       name={offer.title}
                       placeType={offer.type}
-                      setActiveCard={() => {setActiveCard(offer.id)}}
+                      setActiveCard={() => {
+                        setActiveCard(offer.id);
+                      }}
                     />
                   ))}
                 </div>
@@ -84,13 +87,19 @@ const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
               </section>
             )}
             <div className="cities__right-section">
-              {cityOffers.length !== 0 ? <section className="cities__map map"></section> : '' }
+              {cityOffers.length !== 0 ? (
+                <Map
+                  city={cityOffers[0].city}
+                  offers={cityOffers}
+                  selectedOfferId={activeCard}
+                />
+              ) : '' }
             </div>
           </div>
         </div>
       </main>
     </div>
   );
-}
+};
 
 export default MainScreen;

@@ -1,5 +1,5 @@
 import FavoriteListComponent from '../../components/Favorite-list/Favorite-list';
-import {Offer} from "../../types/types";
+import {Offer} from '../../types/types';
 import HeaderComponent from '../../components/Header/Header';
 
 type FavoriteScreenProps = {
@@ -10,9 +10,9 @@ type FavoriteScreenProps = {
 const FavoritesScreen = ({isLogged, favorites} : FavoriteScreenProps) => {
   const cities = new Set();
 
-  for (let item of favorites) {
-    cities.add(item.city.name);
-  }
+  {favorites.map((favorite) => (
+    cities.add(favorite.city.name)
+  ));}
 
   return (
     <div className={`page ${favorites.length === 0 ? 'page--favorites-empty' : ''}`}>
@@ -24,10 +24,10 @@ const FavoritesScreen = ({isLogged, favorites} : FavoriteScreenProps) => {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {[...cities].map((city, i) => (
+                {[...cities].map((city) => (
                   <FavoriteListComponent
-                    key={`city-${city}`}
-                    city={city}
+                    key={`city-${city as string}`}
+                    city={city as string}
                     offers={favorites.filter((offer) => offer.city.name === city)}
                   />
                 ))}
@@ -51,6 +51,6 @@ const FavoritesScreen = ({isLogged, favorites} : FavoriteScreenProps) => {
       </footer>
     </div>
   );
-}
+};
 
 export default FavoritesScreen;
