@@ -1,10 +1,10 @@
-type Location = {
+export type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
 }
 
-type City = {
+export type City = {
   location: Location;
   name: string;
 }
@@ -33,6 +33,12 @@ export type Offer = {
   rating: number;
   title: string;
   type: string;
+}
+
+export type MapProps = {
+  city: City;
+  offers: Offer[];
+  selectedOfferId?: number;
 }
 
 export type PlaceCardProps = {

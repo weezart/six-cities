@@ -1,6 +1,7 @@
 import PlaceCardComponent from '../../components/Place-card/Place-card';
 import HeaderComponent from '../../components/Header/Header';
 import LocationComponent from '../../components/Location/Location';
+import Map from '../../components/Map/Map';
 import {Offer} from '../../types/types';
 import {CITIES} from '../../const';
 import { useState } from 'react';
@@ -86,7 +87,13 @@ const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
               </section>
             )}
             <div className="cities__right-section">
-              {cityOffers.length !== 0 ? <section className="cities__map map"></section> : '' }
+              {cityOffers.length !== 0 ? (
+                <Map
+                  city={cityOffers[0].city}
+                  offers={cityOffers}
+                  selectedOfferId={activeCard}
+                />
+              ) : '' }
             </div>
           </div>
         </div>
