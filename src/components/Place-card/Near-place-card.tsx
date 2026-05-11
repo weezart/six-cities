@@ -1,10 +1,13 @@
 import {Link} from 'react-router-dom';
 import {PlaceCardProps} from '../../types/types';
 
-const NearPlaceCardComponent = ({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType, setActiveCard} : PlaceCardProps) => (
+const NearPlaceCardComponent = ({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType, setActiveCard, resetActiveCard} : PlaceCardProps) => (
   <article className="near-places__card place-card"
     onMouseOver={() => {
       setActiveCard(id);
+    }}
+    onMouseLeave={() => {
+      resetActiveCard?.();
     }}
   >
     {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}

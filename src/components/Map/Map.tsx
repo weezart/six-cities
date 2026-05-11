@@ -18,7 +18,7 @@ const ACTIVE_ICON = new Icon({
 const URL_MARKER_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const ATTRIBUTION_MARKER_LAYER = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-const Map = ({city, offers, selectedOfferId}: MapProps) => {
+const Map = ({city, offers, selectedOfferId, className = 'cities__map map'}: MapProps) => {
   const mapRef = useRef<HTMLElement | null>(null);
   const mapInstanceRef = useRef<LeafletMap | null>(null);
   const markersLayerRef = useRef<LayerGroup | null>(null);
@@ -91,7 +91,7 @@ const Map = ({city, offers, selectedOfferId}: MapProps) => {
     };
   }, [offers, selectedOfferId]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <section className={className} ref={mapRef}></section>;
 };
 
 export default Map;

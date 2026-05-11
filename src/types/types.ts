@@ -39,6 +39,7 @@ export type MapProps = {
   city: City;
   offers: Offer[];
   selectedOfferId?: number;
+  className?: string;
 }
 
 export type PlaceCardProps = {
@@ -51,4 +52,15 @@ export type PlaceCardProps = {
   name: string;
   placeType: string;
   setActiveCard: (id: number) => void;
+  resetActiveCard?: () => void;
+}
+
+export type Review = {
+  id: number;
+  userName: string;
+  avatarUrl: string;
+  rating: number;
+  text: string;
+  dateTime: string;
+  dateLabel: string;
 }
