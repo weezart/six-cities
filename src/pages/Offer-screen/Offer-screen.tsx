@@ -3,9 +3,10 @@ import {Offer} from '../../types/types';
 import HeaderComponent from '../../components/Header/Header';
 import NearPlaceCardComponent from '../../components/Place-card/Near-place-card';
 import ReviewFormComponent from '../../components/ReviewForm/ReviewForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReviewsListComponent from '../../components/Reviews-list/Reviews-list';
 import {REVIEWS} from '../../mock/reviews';
+import Map from '../../components/Map/Map';
 
 type OfferScreenProps = {
   isLogged: boolean;
@@ -21,16 +22,20 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
   const placeId = Number(urlParams.id ?? 1);
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
   const selectedOffer = offers.filter((offer) => offer.id === placeId)[0];
-  const NearOffers = offers.filter((offer) => offer.city.name === selectedOffer.city.name && offer.id !== selectedOffer.id);
+  const nearOffers = offers.filter((offer) => offer.city.name === selectedOffer.city.name && offer.id !== selectedOffer.id);
+  const offersForMap = [selectedOffer, ...nearOffers];
   const { images, isPremium, title, isFavorite, rating, price, type, bedrooms, maxAdults, goods, host, description } = selectedOffer;
-  const [activeCard, setActiveCard] = useState(0);
+  const [activeCard, setActiveCard] = useState(selectedOffer.id);
+
+  useEffect(() => {
+    setActiveCard(selectedOffer.id);
+  }, [selectedOffer.id]);
 
   return (
     <div className="page">
       <HeaderComponent isLogged={isLogged} favoritesCount={favoritesCount} />
       <main className="page__main page__main--offer">
         <section className="offer">
-          <div className="test">{activeCard}</div>
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
               {images.map((image) => (
@@ -121,13 +126,18 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map
+            city={selectedOffer.city}
+            offers={offersForMap}
+            selectedOfferId={activeCard}
+            className="offer__map map"
+          />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {NearOffers.map((offer) => (
+              {nearOffers.map((offer) => (
                 <NearPlaceCardComponent
                   key={offer.id}
                   id={offer.id}
@@ -138,7 +148,8 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                   ratingWidth={`${Math.round(offer.rating / 5 * 20) * 5}%`}
                   name={offer.title}
                   placeType={offer.type}
-                  setActiveCard={() => setActiveCard(offer.id)}
+                  setActiveCard={setActiveCard}
+                  resetActiveCard={() => setActiveCard(selectedOffer.id)}
                 />
               ))}
             </div>
