@@ -52,3 +52,13 @@ export type PlaceCardProps = {
   placeType: string;
   setActiveCard: (id: number) => void;
 }
+
+export type Review = {
+  id: number;
+  userName: string;
+  avatarUrl: string;
+  rating: number;
+  text: string;
+  dateTime: string;
+  dateLabel: string;
+}
