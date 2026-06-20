@@ -1,15 +1,27 @@
-import {Link} from 'react-router-dom';
+import cn from 'classnames';
+import { City } from '../../types/types';
+import styles from './Location.module.css';
 
 type LocationProps = {
-  isActive: boolean;
-  city: string;
+  city: City;
+  activeCity: City;
+  onCityClick: (city: City) => void;
 }
 
-const LocationComponent = ({isActive, city} : LocationProps) => (
+const LocationComponent = ({activeCity, city, onCityClick} : LocationProps) => (
   <li className="locations__item">
-    <Link to={`/${city}`} className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`}>
-      <span>{city}</span>
-    </Link>
+    <button
+      type="button"
+      onClick={() => onCityClick(city)}
+      className={cn(
+        'locations__item-link',
+        'tabs__item',
+        styles.button,
+        activeCity.name === city.name && 'tabs__item--active',
+      )}
+    >
+      <span>{city.name}</span>
+    </button>
   </li>
 );
 

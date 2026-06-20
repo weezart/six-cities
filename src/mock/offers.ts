@@ -1,16 +1,10 @@
 import {Offer} from '../types/types';
+import {CITIES} from './cities';
 
 export const OFFERS: Offer[] = [
   {
     bedrooms: 3,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Amsterdam'
-    },
+    city: CITIES[3],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -37,14 +31,7 @@ export const OFFERS: Offer[] = [
   },
   {
     bedrooms: 3,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Amsterdam'
-    },
+    city: CITIES[3],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -71,14 +58,7 @@ export const OFFERS: Offer[] = [
   },
   {
     bedrooms: 3,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Amsterdam'
-    },
+    city: CITIES[3],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -105,14 +85,7 @@ export const OFFERS: Offer[] = [
   },
   {
     bedrooms: 4,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Amsterdam'
-    },
+    city: CITIES[3],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -139,14 +112,7 @@ export const OFFERS: Offer[] = [
   },
   {
     bedrooms: 4,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Cologne'
-    },
+    city: CITIES[1],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -173,14 +139,7 @@ export const OFFERS: Offer[] = [
   },
   {
     bedrooms: 4,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Paris'
-    },
+    city: CITIES[0],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -207,14 +166,7 @@ export const OFFERS: Offer[] = [
   },
   {
     bedrooms: 4,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Brussels'
-    },
+    city: CITIES[2],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -241,14 +193,7 @@ export const OFFERS: Offer[] = [
   },
   {
     bedrooms: 4,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Hamburg'
-    },
+    city: CITIES[4],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
@@ -275,14 +220,7 @@ export const OFFERS: Offer[] = [
   },
   {
     bedrooms: 4,
-    city: {
-      location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
-        zoom: 10
-      },
-      name: 'Dusseldorf'
-    },
+    city: CITIES[5],
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {

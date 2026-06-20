@@ -1,5 +1,6 @@
 import {useEffect, useRef} from 'react';
 import {Icon, LayerGroup, Marker, TileLayer} from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import {Map as LeafletMap} from 'leaflet';
 import {MapProps} from '../../types/types';
 
