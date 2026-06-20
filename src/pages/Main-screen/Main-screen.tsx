@@ -2,36 +2,51 @@ import PlaceCardComponent from '../../components/Place-card/Place-card';
 import HeaderComponent from '../../components/Header/Header';
 import LocationComponent from '../../components/Location/Location';
 import Map from '../../components/Map/Map';
-import {Offer} from '../../types/types';
-import {CITIES} from '../../const';
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {City} from '../../types/types';
+import { CITIES } from '../../mock/cities';
+import { changeCity } from '../../store/action';
 
 
 type MainScreenProps = {
   isLogged: boolean;
-  city: string;
-  offers: Offer[];
 }
 
-const MainScreen = ({isLogged, city, offers} : MainScreenProps) => {
-  const cityOffers = offers.filter((offer) => offer.city.name === city);
-  const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
+const MainScreen = ({isLogged} : MainScreenProps) => {
   const [activeCard, setActiveCard] = useState(0);
+
+  const dispatch = useAppDispatch();
+
+  const city = useAppSelector((state) => state.city);
+
+  const offers = useAppSelector((state) => state.offers);
+
+  const cityOffers = offers.filter(
+    (offer) => offer.city.name === city.name
+  );
+
+  const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
+
+  const handleCityClick = (selectedCity: City) => {
+    dispatch(changeCity(selectedCity));
+  };
 
   return (
     <div className="page page--gray page--main">
       <HeaderComponent isLogged={isLogged} favoritesCount={favoritesCount} />
 
       <main className={`page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`}>
-        <h1 className="visually-hidden">Cities {city}</h1>
+        <h1 className="visually-hidden">Cities {city.name}</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
               {CITIES.map((citiesItem) => (
                 <LocationComponent
-                  key={`city-${citiesItem}`}
-                  isActive={city === citiesItem}
+                  key={`city-${citiesItem.name}`}
+                  activeCity={city}
                   city={citiesItem}
+                  onCityClick={handleCityClick}
                 />
               ))}
             </ul>
