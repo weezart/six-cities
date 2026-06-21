@@ -1,10 +1,12 @@
 import PlaceCardComponent from '../../components/Place-card/Place-card';
 import HeaderComponent from '../../components/Header/Header';
 import LocationComponent from '../../components/Location/Location';
+import SortingComponent from '../../components/Sorting/Sorting';
+import { SortOption } from '../../const';
 import Map from '../../components/Map/Map';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {City} from '../../types/types';
+import {City, Offer} from '../../types/types';
 import { CITIES } from '../../mock/cities';
 import { changeCity } from '../../store/action';
 
@@ -13,8 +15,28 @@ type MainScreenProps = {
   isLogged: boolean;
 }
 
+const getSortedOffers = (
+  offers: Offer[],
+  sortOption: SortOption
+) => {
+  switch (sortOption) {
+    case SortOption.PriceLowToHigh:
+      return [...offers].sort((firstOffer, secondOffer) => firstOffer.price - secondOffer.price);
+
+    case SortOption.PriceHighToLow:
+      return [...offers].sort((firstOffer, secondOffer) => secondOffer.price - firstOffer.price);
+
+    case SortOption.TopRatedFirst:
+      return [...offers].sort((firstOffer, secondOffer) => secondOffer.rating - firstOffer.rating);
+
+    case SortOption.Popular:
+      return [...offers];
+  }
+};
+
 const MainScreen = ({isLogged} : MainScreenProps) => {
   const [activeCard, setActiveCard] = useState(0);
+  const [activeSortOption, setActiveSortOption] = useState(SortOption.Popular);
 
   const dispatch = useAppDispatch();
 
@@ -25,6 +47,8 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
   const cityOffers = offers.filter(
     (offer) => offer.city.name === city.name
   );
+
+  const sortedOffers = getSortedOffers(cityOffers, activeSortOption);
 
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
 
@@ -58,24 +82,12 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{cityOffers.length} places to stay in {cityOffers[0].city.name}</b>
-                <div className="test">{activeCard}</div>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by </span>
-                  <span className="places__sorting-type" tabIndex={0}>
-                    Popular
-                    <svg className="places__sorting-arrow" width={7} height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom ">
-                    <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                    <li className="places__option" tabIndex={0}>Price: low to high</li>
-                    <li className="places__option" tabIndex={0}>Price: high to low</li>
-                    <li className="places__option" tabIndex={0}>Top rated first</li>
-                  </ul>
-                </form>
+                <SortingComponent
+                  activeSortOption={activeSortOption}
+                  onSortOptionChange={setActiveSortOption}
+                />
                 <div className="cities__places-list places__list tabs__content">
-                  {cityOffers.map((offer) => (
+                  {sortedOffers.map((offer) => (
                     <PlaceCardComponent
                       key={offer.id}
                       id={offer.id}
