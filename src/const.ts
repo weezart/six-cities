@@ -9,6 +9,15 @@ export enum AppRoute {
   Root = '/'
 }
 
+export const APIRoute = {
+  Offers: '/offers',
+  Nearby: '/nearby',
+  Favorite: '/favorite',
+  Comments: '/comments',
+  Login: '/login',
+  Logout: '/logout',
+} as const;
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
