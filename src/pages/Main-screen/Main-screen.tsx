@@ -92,7 +92,7 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
                       key={offer.id}
                       id={offer.id}
                       isPremium={offer.isPremium}
-                      imageUrl={offer.images[Math.floor(Math.random() * offer.images.length)]}
+                      imageUrl={offer.previewImage}
                       price={offer.price}
                       isMarkActive={offer.isFavorite}
                       ratingWidth={`${Math.round(offer.rating / 5 * 20) * 5}%`}
