@@ -7,11 +7,22 @@ import FavoritesScreen from '../../pages/Favorites-screen/Favorites-screen';
 import OfferScreen from '../../pages/Offer-screen/Offer-screen';
 import NotFoundScreen from '../../pages/Not-found-screen/Not-found-screen';
 import {OFFERS} from '../../mock/offers';
+import { useAppSelector } from '../../hooks';
+import Loading from '../../pages/Loading/Loading';
 
 const isLogged = true;
 
 const App = () => {
   const FAVORITES = OFFERS.filter((offer) => offer.isFavorite);
+
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus,
+  );
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
+    return <Loading />;
+  }
 
   return (
     <BrowserRouter>
