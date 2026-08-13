@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import ReviewsListComponent from '../../components/Reviews-list/Reviews-list';
 import {REVIEWS} from '../../mock/reviews';
 import Map from '../../components/Map/Map';
+import NotFoundScreen from '../Not-found-screen/Not-found-screen';
 
 type OfferScreenProps = {
   isLogged: boolean;
@@ -21,15 +22,22 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
   const urlParams = useParams<OfferRouteParams>();
   const placeId = Number(urlParams.id ?? 1);
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
-  const selectedOffer = offers.filter((offer) => offer.id === placeId)[0];
+  const selectedOffer = offers.find((offer) => offer.id === placeId);
+  const [activeCard, setActiveCard] = useState(0);
+
+  useEffect(() => {
+    if (selectedOffer) {
+      setActiveCard(selectedOffer.id);
+    }
+  }, [selectedOffer]);
+
+  if (!selectedOffer) {
+    return <NotFoundScreen />;
+  }
+
   const nearOffers = offers.filter((offer) => offer.city.name === selectedOffer.city.name && offer.id !== selectedOffer.id);
   const offersForMap = [selectedOffer, ...nearOffers];
   const { images, isPremium, title, isFavorite, rating, price, type, bedrooms, maxAdults, goods, host, description } = selectedOffer;
-  const [activeCard, setActiveCard] = useState(selectedOffer.id);
-
-  useEffect(() => {
-    setActiveCard(selectedOffer.id);
-  }, [selectedOffer.id]);
 
   return (
     <div className="page">

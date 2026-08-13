@@ -8,6 +8,6 @@ const loadOffers = createAction<Offer[]>('offers/load-all');
 
 const setAuthorizationStatus = createAction<AuthorizationStatus>('user/setAuthStatus');
 
-const setIsLoading = createAction<boolean>('offers/load-success');
+const setIsLoading = createAction<boolean>('offers/setLoading');
 
 export { changeCity, loadOffers, setAuthorizationStatus, setIsLoading };

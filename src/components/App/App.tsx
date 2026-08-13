@@ -6,19 +6,26 @@ import LoginScreen from '../../pages/Login-screen/Login-screen';
 import FavoritesScreen from '../../pages/Favorites-screen/Favorites-screen';
 import OfferScreen from '../../pages/Offer-screen/Offer-screen';
 import NotFoundScreen from '../../pages/Not-found-screen/Not-found-screen';
-import {OFFERS} from '../../mock/offers';
-import { useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Loading from '../../pages/Loading/Loading';
-
-const isLogged = true;
+import { checkAuthAction, fetchOffersAction } from '../../store/api-actions';
 
 const App = () => {
-  const FAVORITES = OFFERS.filter((offer) => offer.isFavorite);
+  const dispatch = useAppDispatch();
+  const offers = useAppSelector((state) => state.offers);
+  const favorites = offers.filter((offer) => offer.isFavorite);
 
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus,
   );
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const isLogged = authorizationStatus === AuthorizationStatus.Auth;
+
+  useEffect(() => {
+    dispatch(checkAuthAction());
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <Loading />;
@@ -39,15 +46,15 @@ const App = () => {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
+              authorizationStatus={authorizationStatus}
             >
-              <FavoritesScreen favorites={FAVORITES} isLogged={isLogged}/>
+              <FavoritesScreen favorites={favorites} isLogged={isLogged}/>
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Offer}
-          element={<OfferScreen offers={OFFERS} isLogged={isLogged}/>}
+          element={<OfferScreen offers={offers} isLogged={isLogged}/>}
         />
         <Route
           path="*"

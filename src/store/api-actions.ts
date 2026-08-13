@@ -15,9 +15,13 @@ export const fetchOffersAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
-  const { data } = await api.get<Offer[]>(APIRoute.Offers);
-  dispatch(loadOffers(data));
-  dispatch(setIsLoading(false));
+  dispatch(setIsLoading(true));
+  try {
+    const { data } = await api.get<Offer[]>(APIRoute.Offers);
+    dispatch(loadOffers(data));
+  } finally {
+    dispatch(setIsLoading(false));
+  }
 });
 
 export const checkAuthAction = createAsyncThunk<
