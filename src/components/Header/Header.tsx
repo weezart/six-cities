@@ -1,7 +1,8 @@
 import {Link} from 'react-router-dom';
 import LogoComponent from '../Logo/Logo';
 import {AppRoute} from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 type HeaderProps = {
   isLogged: boolean;
@@ -9,7 +10,11 @@ type HeaderProps = {
 }
 
 const HeaderComponent = ({isLogged, favoritesCount} : HeaderProps) => {
+  const dispatch = useAppDispatch();
   const userEmail = useAppSelector((state) => state.user?.email ?? '');
+  const handleSignOutClick = () => {
+    void dispatch(logoutAction());
+  };
 
   return (
     <header className="header">
@@ -31,7 +36,7 @@ const HeaderComponent = ({isLogged, favoritesCount} : HeaderProps) => {
                     </Link>
                   </li>
                   <li className="header__nav-item">
-                    <Link to={AppRoute.Root} className="header__nav-link">
+                    <Link to={AppRoute.Root} className="header__nav-link" onClick={handleSignOutClick}>
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>
