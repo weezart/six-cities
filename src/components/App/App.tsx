@@ -45,9 +45,7 @@ const App = () => {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute
-              authorizationStatus={authorizationStatus}
-            >
+            <PrivateRoute>
               <FavoritesScreen favorites={favorites} isLogged={isLogged}/>
             </PrivateRoute>
           }
