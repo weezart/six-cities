@@ -1,21 +1,39 @@
 import LogoComponent from '../../components/Logo/Logo';
 import { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 const LoginScreen = () => {
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    await dispatch(loginAction({ email, password }));
-    navigate(AppRoute.Root);
+    setErrorMessage(null);
+
+    if (password.includes(' ')) {
+      setErrorMessage('Password must not contain spaces.');
+      return;
+    }
+
+    const result = await dispatch(loginAction({ email, password }));
+    if (loginAction.fulfilled.match(result)) {
+      navigate(AppRoute.Root, { replace: true });
+      return;
+    }
+
+    setErrorMessage(result.payload ?? 'Unable to login. Please try again.');
   };
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={AppRoute.Root} replace />;
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -67,12 +85,13 @@ const LoginScreen = () => {
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
+            {errorMessage && <p>{errorMessage}</p>}
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/">
+              <Link className="locations__item-link" to={AppRoute.Root}>
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

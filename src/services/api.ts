@@ -1,6 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, isAxiosError } from 'axios';
 import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
-import { getToken } from './token';
+import { dropToken, getToken } from './token';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -15,6 +15,16 @@ export const createAPI = (): AxiosInstance => {
     }
     return config;
   });
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (isAxiosError(error) && error.response?.status === 401) {
+        dropToken();
+      }
+      return Promise.reject(error);
+    },
+  );
 
   return api;
 };
