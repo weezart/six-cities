@@ -65,9 +65,27 @@ export type Review = {
   dateLabel: string;
 }
 
+export type Comment = {
+  id: number;
+  date: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  comment: string;
+  rating: number;
+};
+
 export type AuthData = {
   email: string;
   password: string;
+};
+
+export type NewCommentData = {
+  offerId: number;
+  comment: string;
+  rating: number;
 };
 
 export type UserData = {
