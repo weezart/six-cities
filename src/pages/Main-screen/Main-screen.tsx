@@ -2,12 +2,11 @@ import PlaceCardComponent from '../../components/Place-card/Place-card';
 import HeaderComponent from '../../components/Header/Header';
 import LocationComponent from '../../components/Location/Location';
 import SortingComponent from '../../components/Sorting/Sorting';
-import { SortOption } from '../../const';
+import { CITIES, SortOption } from '../../const';
 import Map from '../../components/Map/Map';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {City, Offer} from '../../types/types';
-import { CITIES } from '../../mock/cities';
+import {Offer} from '../../types/types';
 import { changeCity } from '../../store/action';
 
 
@@ -35,25 +34,25 @@ const getSortedOffers = (
 };
 
 const MainScreen = ({isLogged} : MainScreenProps) => {
-  const [activeCard, setActiveCard] = useState(0);
+  const [activeCard, setActiveCard] = useState('');
   const [activeSortOption, setActiveSortOption] = useState(SortOption.Popular);
 
   const dispatch = useAppDispatch();
 
-  const city = useAppSelector((state) => state.city);
+  const cityName = useAppSelector((state) => state.cityName);
 
   const offers = useAppSelector((state) => state.offers);
 
   const cityOffers = offers.filter(
-    (offer) => offer.city.name === city.name
+    (offer) => offer.city.name === cityName
   );
 
   const sortedOffers = getSortedOffers(cityOffers, activeSortOption);
 
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
 
-  const handleCityClick = (selectedCity: City) => {
-    dispatch(changeCity(selectedCity));
+  const handleCityClick = (selectedCityName: string) => {
+    dispatch(changeCity(selectedCityName));
   };
 
   return (
@@ -61,15 +60,15 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
       <HeaderComponent isLogged={isLogged} favoritesCount={favoritesCount} />
 
       <main className={`page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`}>
-        <h1 className="visually-hidden">Cities {city.name}</h1>
+        <h1 className="visually-hidden">Cities {cityName}</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {CITIES.map((citiesItem) => (
+              {CITIES.map((currentCityName) => (
                 <LocationComponent
-                  key={`city-${citiesItem.name}`}
-                  activeCity={city}
-                  city={citiesItem}
+                  key={`city-${currentCityName}`}
+                  activeCityName={cityName}
+                  cityName={currentCityName}
                   onCityClick={handleCityClick}
                 />
               ))}
@@ -109,7 +108,7 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content">
                   <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+                  <p className="cities__status-description">We could not find any property available at the moment in {cityName}</p>
                 </div>
               </section>
             )}

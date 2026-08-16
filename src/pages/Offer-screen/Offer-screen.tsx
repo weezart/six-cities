@@ -1,29 +1,48 @@
 import {useParams} from 'react-router-dom';
-import {Offer} from '../../types/types';
 import HeaderComponent from '../../components/Header/Header';
 import NearPlaceCardComponent from '../../components/Place-card/Near-place-card';
 import ReviewFormComponent from '../../components/ReviewForm/ReviewForm';
 import { useEffect, useState } from 'react';
 import ReviewsListComponent from '../../components/Reviews-list/Reviews-list';
-import {REVIEWS} from '../../mock/reviews';
 import Map from '../../components/Map/Map';
 import NotFoundScreen from '../Not-found-screen/Not-found-screen';
+import Loading from '../Loading/Loading';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { clearOfferData, setOfferNotFound } from '../../store/action';
+import { fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
 
 type OfferScreenProps = {
   isLogged: boolean;
-  offers: Offer[];
 }
 
 type OfferRouteParams = {
   id: string;
 };
 
-const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
+const OfferScreen = ({isLogged} : OfferScreenProps) => {
+  const dispatch = useAppDispatch();
   const urlParams = useParams<OfferRouteParams>();
-  const placeId = Number(urlParams.id ?? 1);
+  const placeId = urlParams.id ?? '';
+  const offers = useAppSelector((state) => state.offers);
+  const selectedOffer = useAppSelector((state) => state.currentOffer);
+  const nearOffers = useAppSelector((state) => state.nearbyOffers);
+  const comments = useAppSelector((state) => state.comments);
+  const isOfferNotFound = useAppSelector((state) => state.isOfferNotFound);
+  const isOfferDataLoading = useAppSelector((state) => state.isOfferDataLoading);
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
-  const selectedOffer = offers.find((offer) => offer.id === placeId);
-  const [activeCard, setActiveCard] = useState(0);
+  const [activeCard, setActiveCard] = useState('');
+
+  useEffect(() => {
+    dispatch(clearOfferData());
+    if (!placeId) {
+      dispatch(setOfferNotFound(true));
+      return;
+    }
+
+    void dispatch(fetchOfferAction(placeId));
+    void dispatch(fetchNearbyOffersAction(placeId));
+    void dispatch(fetchCommentsAction(placeId));
+  }, [dispatch, placeId, urlParams.id]);
 
   useEffect(() => {
     if (selectedOffer) {
@@ -31,11 +50,14 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
     }
   }, [selectedOffer]);
 
-  if (!selectedOffer) {
+  if (isOfferNotFound) {
     return <NotFoundScreen />;
   }
 
-  const nearOffers = offers.filter((offer) => offer.city.name === selectedOffer.city.name && offer.id !== selectedOffer.id);
+  if (isOfferDataLoading || !selectedOffer) {
+    return <Loading />;
+  }
+
   const offersForMap = [selectedOffer, ...nearOffers];
   const { images, isPremium, title, isFavorite, rating, price, type, bedrooms, maxAdults, goods, host, description } = selectedOffer;
 
@@ -78,7 +100,7 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                   <span style={{width: `${Math.round(rating / 5 * 20) * 5}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">rating</span>
+                <span className="offer__rating-value rating__value">{rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
@@ -129,8 +151,8 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <ReviewsListComponent reviews={REVIEWS} />
-                {isLogged && <ReviewFormComponent />}
+                <ReviewsListComponent reviews={comments} />
+                {isLogged && <ReviewFormComponent offerId={selectedOffer.id} />}
               </section>
             </div>
           </div>
@@ -150,7 +172,7 @@ const OfferScreen = ({offers, isLogged} : OfferScreenProps) => {
                   key={offer.id}
                   id={offer.id}
                   isPremium={offer.isPremium}
-                  imageUrl={offer.images[Math.floor(Math.random() * offer.images.length)]}
+                  imageUrl={offer.previewImage}
                   price={offer.price}
                   isMarkActive={offer.isFavorite}
                   ratingWidth={`${Math.round(offer.rating / 5 * 20) * 5}%`}

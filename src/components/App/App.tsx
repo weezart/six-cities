@@ -52,7 +52,7 @@ const App = () => {
         />
         <Route
           path={AppRoute.Offer}
-          element={<OfferScreen offers={offers} isLogged={isLogged}/>}
+          element={<OfferScreen isLogged={isLogged}/>}
         />
         <Route
           path="*"
