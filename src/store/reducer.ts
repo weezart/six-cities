@@ -1,6 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { City, Offer, Review, UserData } from '../types/types';
-import { CITIES } from '../mock/cities';
+import { Offer, Review, UserData } from '../types/types';
 import {
   changeCity,
   clearOfferData,
@@ -15,10 +14,10 @@ import {
   setOfferNotFound,
   setUser
 } from './action';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, CITIES } from '../const';
 
 type state = {
-  city: City;
+  cityName: string;
   offers: Offer[];
   authorizationStatus: AuthorizationStatus;
   user: UserData | null;
@@ -32,7 +31,7 @@ type state = {
 };
 
 const initialState: state = {
-  city: CITIES[0],
+  cityName: CITIES[0],
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
@@ -48,7 +47,7 @@ const initialState: state = {
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
-      state.city = action.payload;
+      state.cityName = action.payload;
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;

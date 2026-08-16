@@ -38,6 +38,15 @@ export const SortList = [
   SortOption.TopRatedFirst,
 ];
 
+export const CITIES = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];
+
 export const SPIN_ANIMATION_NAME = 'spin';
 
 export const SPIN_ANIMATION_STYLE = `
