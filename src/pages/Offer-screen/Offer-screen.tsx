@@ -22,7 +22,7 @@ type OfferRouteParams = {
 const OfferScreen = ({isLogged} : OfferScreenProps) => {
   const dispatch = useAppDispatch();
   const urlParams = useParams<OfferRouteParams>();
-  const placeId = Number(urlParams.id);
+  const placeId = urlParams.id ?? '';
   const offers = useAppSelector((state) => state.offers);
   const selectedOffer = useAppSelector((state) => state.currentOffer);
   const nearOffers = useAppSelector((state) => state.nearbyOffers);
@@ -30,11 +30,11 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
   const isOfferNotFound = useAppSelector((state) => state.isOfferNotFound);
   const isOfferDataLoading = useAppSelector((state) => state.isOfferDataLoading);
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
-  const [activeCard, setActiveCard] = useState(0);
+  const [activeCard, setActiveCard] = useState('');
 
   useEffect(() => {
     dispatch(clearOfferData());
-    if (Number.isNaN(placeId)) {
+    if (!placeId) {
       dispatch(setOfferNotFound(true));
       return;
     }
@@ -42,7 +42,7 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
     void dispatch(fetchOfferAction(placeId));
     void dispatch(fetchNearbyOffersAction(placeId));
     void dispatch(fetchCommentsAction(placeId));
-  }, [dispatch, placeId]);
+  }, [dispatch, placeId, urlParams.id]);
 
   useEffect(() => {
     if (selectedOffer) {

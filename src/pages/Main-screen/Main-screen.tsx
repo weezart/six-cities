@@ -35,7 +35,7 @@ const getSortedOffers = (
 };
 
 const MainScreen = ({isLogged} : MainScreenProps) => {
-  const [activeCard, setActiveCard] = useState(0);
+  const [activeCard, setActiveCard] = useState('');
   const [activeSortOption, setActiveSortOption] = useState(SortOption.Popular);
 
   const dispatch = useAppDispatch();

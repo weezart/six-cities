@@ -7,7 +7,7 @@ const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 300;
 
 type ReviewFormProps = {
-  offerId: number;
+  offerId: string;
 };
 
 const ReviewFormComponent = ({offerId}: ReviewFormProps) => {

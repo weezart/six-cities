@@ -51,7 +51,7 @@ export const fetchOffersAction = createAsyncThunk<
 
 export const fetchOfferAction = createAsyncThunk<
   void,
-  number,
+  string,
   {
     dispatch: AppDispatch;
     state: State;
@@ -77,7 +77,7 @@ export const fetchOfferAction = createAsyncThunk<
 
 export const fetchNearbyOffersAction = createAsyncThunk<
   void,
-  number,
+  string,
   {
     dispatch: AppDispatch;
     state: State;
@@ -90,7 +90,7 @@ export const fetchNearbyOffersAction = createAsyncThunk<
 
 export const fetchCommentsAction = createAsyncThunk<
   void,
-  number,
+  string,
   {
     dispatch: AppDispatch;
     state: State;

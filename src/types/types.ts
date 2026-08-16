@@ -11,7 +11,7 @@ export type City = {
 
 type Host = {
   avatarUrl: string;
-  id: number;
+  id: string;
   isPro: boolean;
   name: string;
 }
@@ -22,7 +22,7 @@ export type Offer = {
   description: string;
   goods: string[];
   host: Host;
-  id: number;
+  id: string;
   images: string[];
   isFavorite: boolean;
   isPremium: boolean;
@@ -38,12 +38,12 @@ export type Offer = {
 export type MapProps = {
   city: City;
   offers: Offer[];
-  selectedOfferId?: number;
+  selectedOfferId?: string;
   className?: string;
 }
 
 export type PlaceCardProps = {
-  id: number;
+  id: string;
   isPremium: boolean;
   imageUrl: string;
   price: number;
@@ -51,7 +51,7 @@ export type PlaceCardProps = {
   ratingWidth: string;
   name: string;
   placeType: string;
-  setActiveCard: (id: number) => void;
+  setActiveCard: (id: string) => void;
   resetActiveCard?: () => void;
 }
 
@@ -83,7 +83,7 @@ export type AuthData = {
 };
 
 export type NewCommentData = {
-  offerId: number;
+  offerId: string;
   comment: string;
   rating: number;
 };
