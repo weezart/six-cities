@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { SortOption, SortList } from '../../const';
 
 type SortingProps = {
@@ -13,10 +13,13 @@ function SortingComponent({
 }: SortingProps) {
   const [isOpened, setIsOpened] = useState(false);
 
-  const handleSortOptionClick = (sortOption: SortOption) => {
+  const handleSortOptionClick = useCallback((sortOption: SortOption) => {
     onSortOptionChange(sortOption);
     setIsOpened(false);
-  };
+  }, [onSortOptionChange]);
+  const toggleOpened = useCallback(() => {
+    setIsOpened((opened) => !opened);
+  }, []);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -24,7 +27,7 @@ function SortingComponent({
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={() => setIsOpened((opened) => !opened)}
+        onClick={toggleOpened}
       >
         {activeSortOption}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -55,4 +58,6 @@ function SortingComponent({
     </form>
   );
 }
-export default SortingComponent;
+
+const MemoizedSortingComponent = memo(SortingComponent);
+export default MemoizedSortingComponent;
