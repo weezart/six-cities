@@ -1,7 +1,8 @@
 import RatingInputComponent from '../Rating-input/Rating-input';
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postCommentAction } from '../../store/api-actions';
+import { selectIsCommentSending } from '../../store/selectors';
 
 const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 300;
@@ -10,17 +11,31 @@ type ReviewFormProps = {
   offerId: string;
 };
 
+const ratings = [
+  {count: 5, title: 'perfect'},
+  {count: 4, title: 'good'},
+  {count: 3, title: 'not bad'},
+  {count: 2, title: 'badly'},
+  {count: 1, title: 'terribly'}
+];
+
 const ReviewFormComponent = ({offerId}: ReviewFormProps) => {
   const dispatch = useAppDispatch();
-  const isCommentSending = useAppSelector((state) => state.isCommentSending);
+  const isCommentSending = useAppSelector(selectIsCommentSending);
   const [stars, setStars] = useState(0);
   const [text, setText] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const isTextLengthValid = text.length >= MIN_REVIEW_LENGTH && text.length <= MAX_REVIEW_LENGTH;
-  const isSubmitDisabled = isCommentSending || stars === 0 || !isTextLengthValid;
+  const isTextLengthValid = useMemo(
+    () => text.length >= MIN_REVIEW_LENGTH && text.length <= MAX_REVIEW_LENGTH,
+    [text]
+  );
+  const isSubmitDisabled = useMemo(
+    () => isCommentSending || stars === 0 || !isTextLengthValid,
+    [isCommentSending, stars, isTextLengthValid]
+  );
 
-  const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = useCallback(async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setErrorMessage(null);
     const result = await dispatch(postCommentAction({
@@ -36,21 +51,17 @@ const ReviewFormComponent = ({offerId}: ReviewFormProps) => {
     }
 
     setErrorMessage(result.payload ?? 'Unable to send comment. Please try again.');
-  };
-
-  const ratings = [
-    {count: 5, title: 'perfect'},
-    {count: 4, title: 'good'},
-    {count: 3, title: 'not bad'},
-    {count: 2, title: 'badly'},
-    {count: 1, title: 'terribly'}
-  ];
+  }, [dispatch, offerId, stars, text]);
+  const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
+    void handleFormSubmit(evt);
+  }, [handleFormSubmit]);
+  const handleTextChange = useCallback((evt: ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = evt.target.value;
+    setText(newText.trimStart());
+  }, []);
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => {
-      void handleFormSubmit(evt);
-    }}
-    >
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratings.map((rating) => (
@@ -69,10 +80,7 @@ const ReviewFormComponent = ({offerId}: ReviewFormProps) => {
         disabled={isCommentSending}
         minLength={MIN_REVIEW_LENGTH}
         maxLength={MAX_REVIEW_LENGTH}
-        onChange={(e) => {
-          const newText = e.target.value;
-          setText(newText.trimStart());
-        }}
+        onChange={handleTextChange}
         className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
       />

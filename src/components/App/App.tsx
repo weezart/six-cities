@@ -10,16 +10,16 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Loading from '../../pages/Loading/Loading';
 import { checkAuthAction, fetchOffersAction } from '../../store/api-actions';
+import {
+  selectAuthorizationStatus,
+  selectIsOffersLoading
+} from '../../store/selectors';
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector((state) => state.offers);
-  const favorites = offers.filter((offer) => offer.isFavorite);
 
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus,
-  );
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isOffersLoading = useAppSelector(selectIsOffersLoading);
   const isLogged = authorizationStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const App = () => {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute>
-              <FavoritesScreen favorites={favorites} isLogged={isLogged}/>
+              <FavoritesScreen isLogged={isLogged} />
             </PrivateRoute>
           }
         />

@@ -2,14 +2,23 @@ import {useParams} from 'react-router-dom';
 import HeaderComponent from '../../components/Header/Header';
 import NearPlaceCardComponent from '../../components/Place-card/Near-place-card';
 import ReviewFormComponent from '../../components/ReviewForm/ReviewForm';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ReviewsListComponent from '../../components/Reviews-list/Reviews-list';
 import Map from '../../components/Map/Map';
 import NotFoundScreen from '../Not-found-screen/Not-found-screen';
 import Loading from '../Loading/Loading';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { clearOfferData, setOfferNotFound } from '../../store/action';
+import { clearOfferData, setOfferNotFound } from '../../store/offer-slice/offer-slice';
 import { fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
+import {
+  selectComments,
+  selectCurrentOffer,
+  selectFavoritesCount,
+  selectIsOfferDataLoading,
+  selectIsOfferNotFound,
+  selectNearbyOffers,
+  selectOffersForMap
+} from '../../store/selectors';
 
 type OfferScreenProps = {
   isLogged: boolean;
@@ -23,14 +32,15 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
   const dispatch = useAppDispatch();
   const urlParams = useParams<OfferRouteParams>();
   const placeId = urlParams.id ?? '';
-  const offers = useAppSelector((state) => state.offers);
-  const selectedOffer = useAppSelector((state) => state.currentOffer);
-  const nearOffers = useAppSelector((state) => state.nearbyOffers);
-  const comments = useAppSelector((state) => state.comments);
-  const isOfferNotFound = useAppSelector((state) => state.isOfferNotFound);
-  const isOfferDataLoading = useAppSelector((state) => state.isOfferDataLoading);
-  const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
+  const selectedOffer = useAppSelector(selectCurrentOffer);
+  const nearOffers = useAppSelector(selectNearbyOffers);
+  const comments = useAppSelector(selectComments);
+  const isOfferNotFound = useAppSelector(selectIsOfferNotFound);
+  const isOfferDataLoading = useAppSelector(selectIsOfferDataLoading);
+  const favoritesCount = useAppSelector(selectFavoritesCount);
+  const offersForMap = useAppSelector(selectOffersForMap);
   const [activeCard, setActiveCard] = useState('');
+  const ratingWidth = selectedOffer ? `${Math.round(selectedOffer.rating / 5 * 20) * 5}%` : '0%';
 
   useEffect(() => {
     dispatch(clearOfferData());
@@ -42,13 +52,17 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
     void dispatch(fetchOfferAction(placeId));
     void dispatch(fetchNearbyOffersAction(placeId));
     void dispatch(fetchCommentsAction(placeId));
-  }, [dispatch, placeId, urlParams.id]);
+  }, [dispatch, placeId]);
 
   useEffect(() => {
     if (selectedOffer) {
       setActiveCard(selectedOffer.id);
     }
   }, [selectedOffer]);
+
+  const handleNearOfferHover = useCallback((cardId: string) => {
+    setActiveCard(cardId);
+  }, []);
 
   if (isOfferNotFound) {
     return <NotFoundScreen />;
@@ -58,7 +72,6 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
     return <Loading />;
   }
 
-  const offersForMap = [selectedOffer, ...nearOffers];
   const { images, isPremium, title, isFavorite, rating, price, type, bedrooms, maxAdults, goods, host, description } = selectedOffer;
 
   return (
@@ -97,7 +110,7 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${Math.round(rating / 5 * 20) * 5}%`}}></span>
+                  <span style={{width: ratingWidth}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -178,8 +191,8 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
                   ratingWidth={`${Math.round(offer.rating / 5 * 20) * 5}%`}
                   name={offer.title}
                   placeType={offer.type}
-                  setActiveCard={setActiveCard}
-                  resetActiveCard={() => setActiveCard(selectedOffer.id)}
+                  setActiveCard={handleNearOfferHover}
+                  resetCardId={selectedOffer.id}
                 />
               ))}
             </div>

@@ -4,33 +4,19 @@ import LocationComponent from '../../components/Location/Location';
 import SortingComponent from '../../components/Sorting/Sorting';
 import { CITIES, SortOption } from '../../const';
 import Map from '../../components/Map/Map';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {Offer} from '../../types/types';
-import { changeCity } from '../../store/action';
-
+import { changeCity } from '../../store/offers-slice/offers-slice';
+import {
+  selectCityName,
+  selectCityOffers,
+  selectFavoritesCount,
+  selectOffers,
+  selectSortedCityOffers
+} from '../../store/selectors';
 
 type MainScreenProps = {
   isLogged: boolean;
-}
-
-const getSortedOffers = (
-  offers: Offer[],
-  sortOption: SortOption
-) => {
-  switch (sortOption) {
-    case SortOption.PriceLowToHigh:
-      return [...offers].sort((firstOffer, secondOffer) => firstOffer.price - secondOffer.price);
-
-    case SortOption.PriceHighToLow:
-      return [...offers].sort((firstOffer, secondOffer) => secondOffer.price - firstOffer.price);
-
-    case SortOption.TopRatedFirst:
-      return [...offers].sort((firstOffer, secondOffer) => secondOffer.rating - firstOffer.rating);
-
-    case SortOption.Popular:
-      return [...offers];
-  }
 };
 
 const MainScreen = ({isLogged} : MainScreenProps) => {
@@ -38,28 +24,36 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
   const [activeSortOption, setActiveSortOption] = useState(SortOption.Popular);
 
   const dispatch = useAppDispatch();
+  const cityName = useAppSelector(selectCityName);
+  const offers = useAppSelector(selectOffers);
+  const cityOffers = useAppSelector(selectCityOffers);
+  const sortedOffers = useAppSelector((state) =>
+    selectSortedCityOffers(state, activeSortOption)
+  );
+  const favoritesCount = useAppSelector(selectFavoritesCount);
 
-  const cityName = useAppSelector((state) => state.cityName);
-
-  const offers = useAppSelector((state) => state.offers);
-
-  const cityOffers = offers.filter(
-    (offer) => offer.city.name === cityName
+  const pageMainClassName = useMemo(
+    () => `page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`,
+    [offers.length]
+  );
+  const placesContainerClassName = useMemo(
+    () =>
+      `cities__places-container ${cityOffers.length === 0 ? 'cities__places-container--empty' : ''} container`,
+    [cityOffers.length]
   );
 
-  const sortedOffers = getSortedOffers(cityOffers, activeSortOption);
-
-  const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
-
-  const handleCityClick = (selectedCityName: string) => {
+  const handleCityClick = useCallback((selectedCityName: string) => {
     dispatch(changeCity(selectedCityName));
-  };
+  }, [dispatch]);
+  const handleActiveCardChange = useCallback((cardId: string) => {
+    setActiveCard(cardId);
+  }, []);
 
   return (
     <div className="page page--gray page--main">
       <HeaderComponent isLogged={isLogged} favoritesCount={favoritesCount} />
 
-      <main className={`page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`}>
+      <main className={pageMainClassName}>
         <h1 className="visually-hidden">Cities {cityName}</h1>
         <div className="tabs">
           <section className="locations container">
@@ -76,7 +70,7 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
           </section>
         </div>
         <div className="cities">
-          <div className={`cities__places-container ${cityOffers.length === 0 ? 'cities__places-container--empty' : ''} container`}>
+          <div className={placesContainerClassName}>
             {cityOffers.length !== 0 ? (
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
@@ -97,9 +91,7 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
                       ratingWidth={`${Math.round(offer.rating / 5 * 20) * 5}%`}
                       name={offer.title}
                       placeType={offer.type}
-                      setActiveCard={() => {
-                        setActiveCard(offer.id);
-                      }}
+                      setActiveCard={handleActiveCardChange}
                     />
                   ))}
                 </div>
