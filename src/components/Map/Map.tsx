@@ -23,12 +23,14 @@ const Map = ({city, offers, selectedOfferId, className = 'cities__map map'}: Map
   const mapRef = useRef<HTMLElement | null>(null);
   const mapInstanceRef = useRef<LeafletMap | null>(null);
   const markersLayerRef = useRef<LayerGroup | null>(null);
+  const markersRef = useRef(new globalThis.Map<string, Marker>());
   const initialCityLocationRef = useRef(city.location);
 
   useEffect(() => {
     if (mapRef.current === null || mapInstanceRef.current !== null) {
       return;
     }
+    const markers = markersRef.current;
 
     const map = new LeafletMap(mapRef.current, {
       center: {
@@ -42,9 +44,12 @@ const Map = ({city, offers, selectedOfferId, className = 'cities__map map'}: Map
       attribution: ATTRIBUTION_MARKER_LAYER,
     }).addTo(map);
 
+    markersLayerRef.current = new LayerGroup().addTo(map);
     mapInstanceRef.current = map;
 
     return () => {
+      markers.clear();
+      markersLayerRef.current = null;
       map.remove();
       mapInstanceRef.current = null;
     };
@@ -65,32 +70,40 @@ const Map = ({city, offers, selectedOfferId, className = 'cities__map map'}: Map
   }, [city]);
 
   useEffect(() => {
-    const map = mapInstanceRef.current;
-    if (map === null) {
+    const markersLayer = markersLayerRef.current;
+    if (markersLayer === null) {
       return;
     }
 
-    const markersLayer = new LayerGroup().addTo(map);
-    markersLayerRef.current = markersLayer;
-
-    offers.forEach((offer) => {
-      new Marker(
-        {
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
-        },
-        {
-          icon: selectedOfferId === offer.id ? ACTIVE_ICON : DEFAULT_ICON,
-        }
-      ).addTo(markersLayer);
+    const visibleOfferIds = new Set(offers.map((offer) => offer.id));
+    markersRef.current.forEach((marker, offerId) => {
+      if (!visibleOfferIds.has(offerId)) {
+        markersLayer.removeLayer(marker);
+        markersRef.current.delete(offerId);
+      }
     });
 
-    return () => {
-      markersLayer.clearLayers();
-      map.removeLayer(markersLayer);
-      markersLayerRef.current = null;
-    };
-  }, [offers, selectedOfferId]);
+    offers.forEach((offer) => {
+      const markerLocation = {
+        lat: offer.location.latitude,
+        lng: offer.location.longitude,
+      };
+      const existingMarker = markersRef.current.get(offer.id);
+      if (!existingMarker) {
+        const marker = new Marker(markerLocation, { icon: DEFAULT_ICON }).addTo(markersLayer);
+        markersRef.current.set(offer.id, marker);
+        return;
+      }
+      existingMarker.setLatLng(markerLocation);
+      existingMarker.setIcon(DEFAULT_ICON);
+    });
+  }, [offers]);
+
+  useEffect(() => {
+    markersRef.current.forEach((marker, offerId) => {
+      marker.setIcon(selectedOfferId === offerId ? ACTIVE_ICON : DEFAULT_ICON);
+    });
+  }, [selectedOfferId]);
 
   return <section className={className} ref={mapRef}></section>;
 };
