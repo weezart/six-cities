@@ -74,12 +74,16 @@ export const postCommentAction = createAsyncThunk<Review[], NewCommentData, Thun
   'offer/postComment',
   async ({ offerId, comment, rating }, { extra: api, rejectWithValue }) => {
     try {
-      const { data } = await api.post<Comment[]>(`${APIRoute.Comments}/${offerId}`, {
+      const { data } = await api.post<Comment | Comment[]>(`${APIRoute.Comments}/${offerId}`, {
         comment,
         rating
       });
-      return sortReviews(data.map(mapCommentToReview));
-    } catch {
+      if (Array.isArray(data)) {
+        return sortReviews(data.map(mapCommentToReview));
+      }
+      const { data: commentsData } = await api.get<Comment[]>(`${APIRoute.Comments}/${offerId}`);
+      return sortReviews(commentsData.map(mapCommentToReview));
+    } catch (error) {
       return rejectWithValue('Unable to send comment. Please try again.');
     }
   }
