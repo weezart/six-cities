@@ -1,19 +1,20 @@
 import LogoComponent from '../../components/Logo/Logo';
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { selectAuthorizationStatus } from '../../store/selectors';
 
 const LoginScreen = () => {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setErrorMessage(null);
 
@@ -29,7 +30,16 @@ const LoginScreen = () => {
     }
 
     setErrorMessage(result.payload ?? 'Unable to login. Please try again.');
-  };
+  }, [dispatch, email, navigate, password]);
+  const handleFormSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
+    void handleSubmit(evt);
+  }, [handleSubmit]);
+  const handleEmailChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
+    setEmail(evt.target.value);
+  }, []);
+  const handlePasswordChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
+    setPassword(evt.target.value);
+  }, []);
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Root} replace />;
@@ -55,9 +65,7 @@ const LoginScreen = () => {
               className="login__form form"
               action="#"
               method="post"
-              onSubmit={(evt) => {
-                void handleSubmit(evt);
-              }}
+              onSubmit={handleFormSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
@@ -67,7 +75,7 @@ const LoginScreen = () => {
                   name="email"
                   placeholder="Email"
                   value={email}
-                  onChange={(evt) => setEmail(evt.target.value)}
+                  onChange={handleEmailChange}
                   required
                 />
               </div>
@@ -79,7 +87,7 @@ const LoginScreen = () => {
                   name="password"
                   placeholder="Password"
                   value={password}
-                  onChange={(evt) => setPassword(evt.target.value)}
+                  onChange={handlePasswordChange}
                   required
                 />
               </div>

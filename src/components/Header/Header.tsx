@@ -3,6 +3,8 @@ import LogoComponent from '../Logo/Logo';
 import {AppRoute} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { selectUserEmail } from '../../store/selectors';
+import { useCallback } from 'react';
 
 type HeaderProps = {
   isLogged: boolean;
@@ -11,10 +13,10 @@ type HeaderProps = {
 
 const HeaderComponent = ({isLogged, favoritesCount} : HeaderProps) => {
   const dispatch = useAppDispatch();
-  const userEmail = useAppSelector((state) => state.user?.email ?? '');
-  const handleSignOutClick = () => {
+  const userEmail = useAppSelector(selectUserEmail);
+  const handleSignOutClick = useCallback(() => {
     void dispatch(logoutAction());
-  };
+  }, [dispatch]);
 
   return (
     <header className="header">

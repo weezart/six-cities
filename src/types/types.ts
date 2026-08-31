@@ -52,7 +52,7 @@ export type PlaceCardProps = {
   name: string;
   placeType: string;
   setActiveCard: (id: string) => void;
-  resetActiveCard?: () => void;
+  resetCardId?: string;
 }
 
 export type Review = {

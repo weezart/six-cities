@@ -1,18 +1,16 @@
 import FavoriteListComponent from '../../components/Favorite-list/Favorite-list';
-import {Offer} from '../../types/types';
 import HeaderComponent from '../../components/Header/Header';
+import { useAppSelector } from '../../hooks';
+import { selectFavoriteOffers, selectFavoriteOffersByCity } from '../../store/selectors';
 
 type FavoriteScreenProps = {
   isLogged: boolean;
-  favorites: Offer[];
 }
 
-const FavoritesScreen = ({isLogged, favorites} : FavoriteScreenProps) => {
-  const cities = new Set();
-
-  {favorites.map((favorite) => (
-    cities.add(favorite.city.name)
-  ));}
+const FavoritesScreen = ({isLogged} : FavoriteScreenProps) => {
+  const favorites = useAppSelector(selectFavoriteOffers);
+  const favoritesByCity = useAppSelector(selectFavoriteOffersByCity);
+  const cityGroups = Object.entries(favoritesByCity);
 
   return (
     <div className={`page ${favorites.length === 0 ? 'page--favorites-empty' : ''}`}>
@@ -24,11 +22,11 @@ const FavoritesScreen = ({isLogged, favorites} : FavoriteScreenProps) => {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {[...cities].map((city) => (
+                {cityGroups.map(([city, offers]) => (
                   <FavoriteListComponent
-                    key={`city-${city as string}`}
-                    city={city as string}
-                    offers={favorites.filter((offer) => offer.city.name === city)}
+                    key={`city-${city}`}
+                    city={city}
+                    offers={offers}
                   />
                 ))}
               </ul>

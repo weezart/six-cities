@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import styles from './Location.module.css';
+import { memo, useCallback } from 'react';
 
 type LocationProps = {
   cityName: string;
@@ -7,21 +8,28 @@ type LocationProps = {
   onCityClick: (cityName: string) => void;
 }
 
-const LocationComponent = ({activeCityName, cityName, onCityClick} : LocationProps) => (
-  <li className="locations__item">
-    <button
-      type="button"
-      onClick={() => onCityClick(cityName)}
-      className={cn(
-        'locations__item-link',
-        'tabs__item',
-        styles.button,
-        activeCityName === cityName && 'tabs__item--active',
-      )}
-    >
-      <span>{cityName}</span>
-    </button>
-  </li>
-);
+function LocationComponent({activeCityName, cityName, onCityClick} : LocationProps) {
+  const handleClick = useCallback(() => {
+    onCityClick(cityName);
+  }, [cityName, onCityClick]);
 
-export default LocationComponent;
+  return (
+    <li className="locations__item">
+      <button
+        type="button"
+        onClick={handleClick}
+        className={cn(
+          'locations__item-link',
+          'tabs__item',
+          styles.button,
+          activeCityName === cityName && 'tabs__item--active',
+        )}
+      >
+        <span>{cityName}</span>
+      </button>
+    </li>
+  );
+}
+
+const MemoizedLocationComponent = memo(LocationComponent);
+export default MemoizedLocationComponent;
