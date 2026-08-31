@@ -2,7 +2,19 @@ import {Link} from 'react-router-dom';
 import {PlaceCardProps} from '../../types/types';
 import { memo, useCallback, useMemo } from 'react';
 
-function NearPlaceCardComponent({id, isPremium, imageUrl, price, isMarkActive, ratingWidth, name, placeType, setActiveCard, resetCardId} : PlaceCardProps) {
+function NearPlaceCardComponent({
+  id,
+  isPremium,
+  imageUrl,
+  price,
+  isMarkActive,
+  ratingWidth,
+  name,
+  placeType,
+  setActiveCard,
+  resetCardId,
+  onBookmarkClick
+} : PlaceCardProps) {
   const handleMouseOver = useCallback(() => {
     setActiveCard(id);
   }, [id, setActiveCard]);
@@ -11,6 +23,11 @@ function NearPlaceCardComponent({id, isPremium, imageUrl, price, isMarkActive, r
       setActiveCard(resetCardId);
     }
   }, [resetCardId, setActiveCard]);
+  const handleBookmarkClick = useCallback(() => {
+    if (onBookmarkClick) {
+      onBookmarkClick(id, isMarkActive);
+    }
+  }, [id, isMarkActive, onBookmarkClick]);
   const ratingStyle = useMemo(() => ({width: ratingWidth}), [ratingWidth]);
 
   return (
@@ -29,6 +46,7 @@ function NearPlaceCardComponent({id, isPremium, imageUrl, price, isMarkActive, r
           </div>
           <button className={`place-card__bookmark-button button ${isMarkActive ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
+            onClick={handleBookmarkClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

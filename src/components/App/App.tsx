@@ -9,7 +9,11 @@ import NotFoundScreen from '../../pages/Not-found-screen/Not-found-screen';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Loading from '../../pages/Loading/Loading';
-import { checkAuthAction, fetchOffersAction } from '../../store/api-actions';
+import {
+  checkAuthAction,
+  fetchFavoritesAction,
+  fetchOffersAction
+} from '../../store/api-actions';
 import {
   selectAuthorizationStatus,
   selectIsOffersLoading
@@ -26,6 +30,12 @@ const App = () => {
     dispatch(checkAuthAction());
     dispatch(fetchOffersAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isLogged) {
+      void dispatch(fetchFavoritesAction());
+    }
+  }, [dispatch, isLogged]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <Loading />;

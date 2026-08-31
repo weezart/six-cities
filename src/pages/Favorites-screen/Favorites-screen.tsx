@@ -1,16 +1,47 @@
 import FavoriteListComponent from '../../components/Favorite-list/Favorite-list';
 import HeaderComponent from '../../components/Header/Header';
-import { useAppSelector } from '../../hooks';
-import { selectFavoriteOffers, selectFavoriteOffersByCity } from '../../store/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  selectAuthorizationStatus,
+  selectFavoriteOffers,
+  selectFavoriteOffersByCity,
+  selectIsFavoritesLoading
+} from '../../store/selectors';
+import { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, FavoriteStatus } from '../../const';
+import { changeFavoriteStatusAction, fetchFavoritesAction } from '../../store/api-actions';
+import Loading from '../Loading/Loading';
 
 type FavoriteScreenProps = {
   isLogged: boolean;
 }
 
 const FavoritesScreen = ({isLogged} : FavoriteScreenProps) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const favorites = useAppSelector(selectFavoriteOffers);
   const favoritesByCity = useAppSelector(selectFavoriteOffersByCity);
+  const isFavoritesLoading = useAppSelector(selectIsFavoritesLoading);
   const cityGroups = Object.entries(favoritesByCity);
+  const handleBookmarkClick = useCallback((offerId: string, isFavorite: boolean) => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    const status = isFavorite ? FavoriteStatus.No : FavoriteStatus.Yes;
+    void dispatch(changeFavoriteStatusAction({ offerId, status }));
+  }, [authorizationStatus, dispatch, navigate]);
+
+  useEffect(() => {
+    void dispatch(fetchFavoritesAction());
+  }, [dispatch]);
+
+  if (isFavoritesLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className={`page ${favorites.length === 0 ? 'page--favorites-empty' : ''}`}>
@@ -27,6 +58,7 @@ const FavoritesScreen = ({isLogged} : FavoriteScreenProps) => {
                     key={`city-${city}`}
                     city={city}
                     offers={offers}
+                    onBookmarkClick={handleBookmarkClick}
                   />
                 ))}
               </ul>

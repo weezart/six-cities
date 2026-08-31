@@ -2,12 +2,16 @@ import PlaceCardComponent from '../../components/Place-card/Place-card';
 import HeaderComponent from '../../components/Header/Header';
 import LocationComponent from '../../components/Location/Location';
 import SortingComponent from '../../components/Sorting/Sorting';
-import { CITIES, SortOption } from '../../const';
+import { AppRoute, AuthorizationStatus, CITIES, FavoriteStatus, SortOption } from '../../const';
 import Map from '../../components/Map/Map';
 import { useCallback, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/offers-slice/offers-slice';
+import MainEmpty from '../../components/Main-empty/Main-empty';
+import { changeFavoriteStatusAction } from '../../store/api-actions';
+import { useNavigate } from 'react-router-dom';
 import {
+  selectAuthorizationStatus,
   selectCityName,
   selectCityOffers,
   selectFavoritesCount,
@@ -24,6 +28,8 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
   const [activeSortOption, setActiveSortOption] = useState(SortOption.Popular);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const cityName = useAppSelector(selectCityName);
   const offers = useAppSelector(selectOffers);
   const cityOffers = useAppSelector(selectCityOffers);
@@ -48,6 +54,15 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
   const handleActiveCardChange = useCallback((cardId: string) => {
     setActiveCard(cardId);
   }, []);
+  const handleBookmarkClick = useCallback((offerId: string, isFavorite: boolean) => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    const status = isFavorite ? FavoriteStatus.No : FavoriteStatus.Yes;
+    void dispatch(changeFavoriteStatusAction({ offerId, status }));
+  }, [authorizationStatus, dispatch, navigate]);
 
   return (
     <div className="page page--gray page--main">
@@ -92,17 +107,13 @@ const MainScreen = ({isLogged} : MainScreenProps) => {
                       name={offer.title}
                       placeType={offer.type}
                       setActiveCard={handleActiveCardChange}
+                      onBookmarkClick={handleBookmarkClick}
                     />
                   ))}
                 </div>
               </section>
             ) : (
-              <section className="cities__no-places">
-                <div className="cities__status-wrapper tabs__content">
-                  <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in {cityName}</p>
-                </div>
-              </section>
+              <MainEmpty cityName={cityName} />
             )}
             <div className="cities__right-section">
               {cityOffers.length !== 0 ? (
