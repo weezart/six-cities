@@ -6,6 +6,7 @@ import type { Offer } from '../types/types';
 const selectOffersSlice = (state: State) => state.offers;
 const selectOfferSlice = (state: State) => state.offer;
 const selectUserSlice = (state: State) => state.user;
+const selectFavoritesSlice = (state: State) => state.favorites;
 
 export const selectCityName = createSelector(selectOffersSlice, (offers) => offers.cityName);
 export const selectOffers = createSelector(selectOffersSlice, (offers) => offers.offers);
@@ -43,8 +44,13 @@ export const selectIsCommentSending = createSelector(
   (offer) => offer.isCommentSending
 );
 
-export const selectFavoriteOffers = createSelector(selectOffers, (offers) =>
-  offers.filter((offer) => offer.isFavorite)
+export const selectFavoriteOffers = createSelector(
+  selectFavoritesSlice,
+  (favorites) => favorites.favorites
+);
+export const selectIsFavoritesLoading = createSelector(
+  selectFavoritesSlice,
+  (favorites) => favorites.isFavoritesLoading
 );
 export const selectFavoritesCount = createSelector(
   selectFavoriteOffers,

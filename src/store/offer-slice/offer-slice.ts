@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { Offer, Review } from '../../types/types';
 import {
+  changeFavoriteStatusAction,
   fetchCommentsAction,
   fetchNearbyOffersAction,
   fetchOfferAction,
@@ -58,6 +59,14 @@ const offerSlice = createSlice({
       })
       .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
+      })
+      .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
+        if (state.currentOffer?.id === action.payload.id) {
+          state.currentOffer = action.payload;
+        }
+        state.nearbyOffers = state.nearbyOffers.map((offer) =>
+          offer.id === action.payload.id ? action.payload : offer
+        );
       })
       .addCase(fetchCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;

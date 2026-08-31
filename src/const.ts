@@ -18,6 +18,11 @@ export const APIRoute = {
   Logout: '/logout',
 } as const;
 
+export enum FavoriteStatus {
+  No = 0,
+  Yes = 1,
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
