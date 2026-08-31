@@ -6,9 +6,10 @@ import { memo, useCallback } from 'react';
 type FavoriteListScreen = {
   city: string;
   offers: Offer[];
+  onBookmarkClick: (id: string, isFavorite: boolean) => void;
 }
 
-function FavoriteListComponent({city, offers} : FavoriteListScreen) {
+function FavoriteListComponent({city, offers, onBookmarkClick} : FavoriteListScreen) {
   const handleCardHover = useCallback(() => undefined, []);
 
   return (
@@ -33,6 +34,7 @@ function FavoriteListComponent({city, offers} : FavoriteListScreen) {
             name={place.title}
             placeType={place.type}
             setActiveCard={handleCardHover}
+            onBookmarkClick={onBookmarkClick}
           />
         ))}
       </div>

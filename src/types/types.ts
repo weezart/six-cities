@@ -53,6 +53,7 @@ export type PlaceCardProps = {
   placeType: string;
   setActiveCard: (id: string) => void;
   resetCardId?: string;
+  onBookmarkClick?: (id: string, isFavorite: boolean) => void;
 }
 
 export type Review = {

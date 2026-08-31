@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import HeaderComponent from '../../components/Header/Header';
 import NearPlaceCardComponent from '../../components/Place-card/Near-place-card';
 import ReviewFormComponent from '../../components/ReviewForm/ReviewForm';
@@ -9,10 +9,21 @@ import NotFoundScreen from '../Not-found-screen/Not-found-screen';
 import Loading from '../Loading/Loading';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { clearOfferData, setOfferNotFound } from '../../store/offer-slice/offer-slice';
-import { fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
+import {
+  changeFavoriteStatusAction,
+  fetchCommentsAction,
+  fetchNearbyOffersAction,
+  fetchOfferAction
+} from '../../store/api-actions';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  FavoriteStatus
+} from '../../const';
 import {
   selectComments,
   selectCurrentOffer,
+  selectAuthorizationStatus,
   selectFavoritesCount,
   selectIsOfferDataLoading,
   selectIsOfferNotFound,
@@ -30,9 +41,11 @@ type OfferRouteParams = {
 
 const OfferScreen = ({isLogged} : OfferScreenProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const urlParams = useParams<OfferRouteParams>();
   const placeId = urlParams.id ?? '';
   const selectedOffer = useAppSelector(selectCurrentOffer);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const nearOffers = useAppSelector(selectNearbyOffers);
   const comments = useAppSelector(selectComments);
   const isOfferNotFound = useAppSelector(selectIsOfferNotFound);
@@ -63,6 +76,15 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
   const handleNearOfferHover = useCallback((cardId: string) => {
     setActiveCard(cardId);
   }, []);
+  const handleBookmarkClick = useCallback((offerId: string, isFavorite: boolean) => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    const status = isFavorite ? FavoriteStatus.No : FavoriteStatus.Yes;
+    void dispatch(changeFavoriteStatusAction({ offerId, status }));
+  }, [authorizationStatus, dispatch, navigate]);
 
   if (isOfferNotFound) {
     return <NotFoundScreen />;
@@ -101,6 +123,7 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
                 <button
                   className={`offer__bookmark-button ${isFavorite ? 'offer__bookmark-button--active' : ''} button`}
                   type="button"
+                  onClick={() => handleBookmarkClick(selectedOffer.id, selectedOffer.isFavorite)}
                 >
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -193,6 +216,7 @@ const OfferScreen = ({isLogged} : OfferScreenProps) => {
                   placeType={offer.type}
                   setActiveCard={handleNearOfferHover}
                   resetCardId={selectedOffer.id}
+                  onBookmarkClick={handleBookmarkClick}
                 />
               ))}
             </div>
