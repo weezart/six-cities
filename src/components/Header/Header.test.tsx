@@ -1,6 +1,8 @@
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {AuthorizationStatus} from '../../const';
-import {makeFakeStore, makeFakeUser} from '../../utils/mocks';
+import {logoutAction} from '../../store/api-actions';
+import {extractActionsTypes, makeFakeStore, makeFakeUser} from '../../utils/mocks';
 import {withHistory, withStore} from '../../utils/mock-component';
 import HeaderComponent from './Header';
 
@@ -33,5 +35,23 @@ describe('Component: Header', () => {
     render(withStoreComponent);
 
     expect(screen.getByText('Sign in')).toBeInTheDocument();
+  });
+
+  it('should dispatch logout when user clicks sign out', async () => {
+    const {withStoreComponent, mockStore} = withStore(
+      withHistory(<HeaderComponent isLogged favoritesCount={1} />),
+      makeFakeStore({
+        user: {
+          authorizationStatus: AuthorizationStatus.Auth,
+          user: makeFakeUser(),
+        },
+      }),
+    );
+
+    render(withStoreComponent);
+
+    await userEvent.click(screen.getByText('Sign out'));
+
+    expect(extractActionsTypes(mockStore.getActions())).toContain(logoutAction.pending.type);
   });
 });
