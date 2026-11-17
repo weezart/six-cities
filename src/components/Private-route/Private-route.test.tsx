@@ -56,4 +56,33 @@ describe('Component: PrivateRoute', () => {
     expect(screen.getByText('Login page')).toBeInTheDocument();
     expect(screen.queryByText('Private content')).not.toBeInTheDocument();
   });
+
+  it('should redirect to login page when authorization status is unknown', () => {
+    const {withStoreComponent} = withStore(
+      withHistory(
+        <Routes>
+          <Route
+            path={AppRoute.Root}
+            element={
+              <PrivateRoute>
+                <h1>Private content</h1>
+              </PrivateRoute>
+            }
+          />
+          <Route path={AppRoute.Login} element={<h1>Login page</h1>} />
+        </Routes>,
+      ),
+      makeFakeStore({
+        user: {
+          authorizationStatus: AuthorizationStatus.Unknown,
+          user: null,
+        },
+      }),
+    );
+
+    render(withStoreComponent);
+
+    expect(screen.getByText('Login page')).toBeInTheDocument();
+    expect(screen.queryByText('Private content')).not.toBeInTheDocument();
+  });
 });
