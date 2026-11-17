@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../Private-route/Private-route';
 import MainScreen from '../../pages/Main-screen/Main-screen';
@@ -42,34 +42,32 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<MainScreen isLogged={isLogged}/>}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={<LoginScreen/>}
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute>
-              <FavoritesScreen isLogged={isLogged} />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Offer}
-          element={<OfferScreen isLogged={isLogged}/>}
-        />
-        <Route
-          path="*"
-          element={<NotFoundScreen/>}
-        />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path={AppRoute.Root}
+        element={<MainScreen isLogged={isLogged}/>}
+      />
+      <Route
+        path={AppRoute.Login}
+        element={<LoginScreen/>}
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute>
+            <FavoritesScreen isLogged={isLogged} />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Offer}
+        element={<OfferScreen isLogged={isLogged}/>}
+      />
+      <Route
+        path="*"
+        element={<NotFoundScreen/>}
+      />
+    </Routes>
   );
 };
 
